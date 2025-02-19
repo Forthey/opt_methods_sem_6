@@ -7,7 +7,9 @@ class SlackFormTask {
     std::size_t n, m;
     /// Таблица симплекс-метода: m строк для ограничений + 1 строка для целевой функции.
     /// Всего столбцов: n (исходных переменных) + m (слэк-переменных) + 1 (правые части)
-    std::vector<std::vector<double>> D;
+    Matrix A;
+    std::vector<double> b;
+    std::vector<double> c;
     std::vector<std::size_t> N; /// Множество индексов небазисных переменных
     std::vector<std::size_t> B; /// Множество индексов базисных переменных
     double v; /// Постоянная в целевой фукнции
