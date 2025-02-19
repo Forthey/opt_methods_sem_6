@@ -43,6 +43,9 @@ int main() {
     SlackFormTask slackFormTask(linearTask.getA(), linearTask.getB(), linearTask.getC(), linearTask.getV()),
         slackFormDualTask(dualTask.getA(), dualTask.getB(), dualTask.getC(), dualTask.getV());
 
+    std::cout << linearTask.getA().getRank() << std::endl;
+    std::cout << dualTask.getA().getRank() << std::endl;
+
     auto result = linearTask.getTrueValues(slackFormTask.simplex());
     printResult(result * linearTask.getC() + linearTask.getV(), result);
 
