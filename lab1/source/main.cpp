@@ -13,6 +13,14 @@ double operator*(std::vector<double> const& v1, std::vector<double> const& v2) {
     return sum;
 }
 
+void printResult(double result, std::vector<double> const& x) {
+    std::cout << result << std::endl;
+    for (std::size_t i = 0; i < x.size(); i++) {
+        std::cout << std::format("x{} = {}\t", i + 1, x[i]);
+    }
+    std::cout << std::endl;
+}
+
 
 int main() {
     LinearTask linearTask(
@@ -35,5 +43,5 @@ int main() {
     SlackFormTask slackFormTask(linearTask.getA(), linearTask.getB(), linearTask.getC(), linearTask.getV());
 
     auto result = linearTask.getTrueValues(slackFormTask.simplex());
-    std::cout << result * linearTask.getC() + linearTask.getV() << std::endl;
+    printResult(result * linearTask.getC() + linearTask.getV(), result);
 }

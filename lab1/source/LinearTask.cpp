@@ -1,10 +1,5 @@
 #include "LinearTask.h"
 
-
-LinearTask::LinearTask(Matrix const &A, Matrix const &B, std::vector<double> const &b1, std::vector<double> const &b2, std::vector<double> const &c, double v)
-    : LinearTask(A, B, b1, b2, c, v, {}) {
-}
-
 LinearTask::LinearTask(Matrix const &A, Matrix const &B, std::vector<double> const &b1, std::vector<double> const &b2, std::vector<double> const &c, double v,
                        std::vector<std::size_t> const &notRestrictedVarIndices)
     : n(A.getCols()), c(c), v(v), A(A), b(b1) {

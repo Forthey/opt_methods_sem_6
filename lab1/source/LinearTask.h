@@ -22,10 +22,8 @@ class LinearTask {
     void removeEqualities(Matrix const& B, std::vector<double> const& b2);
     void addVarRestrictions(std::vector<std::size_t> const &notRestrictedVarIndices);
 public:
-    LinearTask(Matrix const &A, Matrix const &B, std::vector<double> const &b1, std::vector<double> const &b2, std::vector<double> const &c, double v);
-
     LinearTask(Matrix const &A, Matrix const &B, std::vector<double> const &b1, std::vector<double> const &b2, std::vector<double> const &c, double v,
-               std::vector<std::size_t> const &notRestrictedVarIndices);
+               std::vector<std::size_t> const &notRestrictedVarIndices = {});
 
     std::vector<double> getTrueValues(std::vector<double> const &x);
 
