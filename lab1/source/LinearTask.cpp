@@ -48,3 +48,15 @@ std::vector<double> LinearTask::getTrueValues(std::vector<double> const &x) {
 
     return trueX;
 }
+
+LinearTask LinearTask::getDualTask() const {
+    std::vector<double> dualC(b.size()), dualB(c.size());
+    for (int i = 0; i < b.size(); i++) {
+        dualC[i] = -b[i];
+    }
+    for (int i = 0; i < c.size(); i++) {
+        dualB[i] = -c[i];
+    }
+    // return {A.transform(), Matrix{}, dualB, {}, dualC, v};
+    return *this;
+}

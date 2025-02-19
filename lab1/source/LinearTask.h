@@ -31,4 +31,6 @@ public:
     double getV() const { return v; }
     Matrix const &getA() const { return A; }
     std::vector<double> const &getB() const { return b; }
+
+    LinearTask getDualTask() const;
 };

@@ -83,4 +83,16 @@ public:
         }
         return rank;
     }
+
+    Matrix transform() const {
+        Matrix matr(getCols(), getRows());
+
+        for (std::size_t i = 0; i < getRows(); i++) {
+            for (std::size_t j = 0; j < getCols(); j++) {
+                matr[j][i] = data[i][j];
+            }
+        }
+
+        return matr;
+    }
 };

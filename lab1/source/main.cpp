@@ -38,10 +38,14 @@ int main() {
         {2, 1, 3, 4, 1},
         0.0,
         {5}
-    );
+    ), dualTask = linearTask.getDualTask();
 
-    SlackFormTask slackFormTask(linearTask.getA(), linearTask.getB(), linearTask.getC(), linearTask.getV());
+    SlackFormTask slackFormTask(linearTask.getA(), linearTask.getB(), linearTask.getC(), linearTask.getV()),
+        slackFormDualTask(dualTask.getA(), dualTask.getB(), dualTask.getC(), dualTask.getV());
 
     auto result = linearTask.getTrueValues(slackFormTask.simplex());
     printResult(result * linearTask.getC() + linearTask.getV(), result);
+
+    result = dualTask.getTrueValues(slackFormDualTask.simplex());
+    printResult(result * dualTask.getC() + dualTask.getV(), result);
 }
