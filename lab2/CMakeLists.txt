@@ -9,6 +9,7 @@ SET(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
 set(SOURCE_FILES
         source/main.cpp
         source/TransportTask.cpp
+        source/utility/print_table.cpp
 )
 
 add_executable(${PROJECT_NAME} ${SOURCE_FILES})

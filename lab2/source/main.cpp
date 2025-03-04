@@ -9,11 +9,11 @@ int main() {
 
     std::setlocale(LC_ALL, "ru_RU.UTF-8");
 
-    std::cout << "Введите имя файла с данными транспортной задачи\n>";
-    std::string filename;
-    std::cin >> filename;
+    // std::cout << "Введите имя файла с данными транспортной задачи\n>";
+    // std::string filename;
+    // std::cin >> filename;
 
-    TransportTask transportTask(filename);
+    TransportTask transportTask("task.data");
 
     std::cout << "\nПоставщики" << std::endl;
     printRow(transportTask.suppliers);
@@ -23,5 +23,9 @@ int main() {
     printTable(transportTask.pathCosts);
 
     std::cout << "\nОпорный план" << std::endl;
-    printTable(transportTask.northwestCornerMethod());
+    auto basicPlan = transportTask.northwestCornerMethod();
+    printTable(basicPlan);
+
+    std::cout << "\nОптимальный план" << std::endl;
+    printTable(transportTask.potentialsMethod(basicPlan));
 }
