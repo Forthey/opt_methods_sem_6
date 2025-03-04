@@ -1,11 +1,9 @@
-//
-// Created by 0Fort on 18.02.2025.
-//
-
 #include "SlackFormTask.h"
 
 #include <iostream>
 #include <memory>
+
+#include "utility/print_matrix.h"
 
 /**
  *
@@ -39,11 +37,11 @@ void SlackFormTask::pivot(std::size_t& e, std::size_t& l) {
     }
 
     // Вычисление целевой функции
-    v = v + c[e] * b[e];
+    freeTerm = freeTerm + targetFunction[e] * b[e];
     for (std::size_t j : N) {
-        c[j] = c[j] - c[e] * A[e][j];
+        targetFunction[j] = targetFunction[j] - targetFunction[e] * A[e][j];
     }
-    c[l] = -c[e] * A[e][l];
+    targetFunction[l] = -targetFunction[e] * A[e][l];
 
     // Обновляем базис: переменная, входящая в базис, заменяет ту, что покидает его
     std::swap(B[l], N[e]);
@@ -55,9 +53,9 @@ std::vector<double> SlackFormTask::simplex() {
         double max = 0;
 
         for (std::size_t j = 0; j < N.size(); j++) {
-            if (c[N[j]] > max) {
+            if (targetFunction[N[j]] > max) {
                 index = j;
-                max = c[N[j]];
+                max = targetFunction[N[j]];
             }
         }
 
@@ -81,10 +79,6 @@ std::vector<double> SlackFormTask::simplex() {
 
         if (delta == std::numeric_limits<double>::infinity()) {
             throw std::runtime_error("CanonicalFormTask::simplex(): Задача неограниченна");
-        }
-
-        for (int i = 0; i < B.size(); i++) {
-            std::cout << A[i][B[i]] << std::endl;
         }
 
         pivot(index, l);
@@ -115,24 +109,31 @@ std::size_t SlackFormTask::find(std::vector<std::size_t> const &v, std::size_t v
     return result;
 }
 
-SlackFormTask::SlackFormTask(Matrix const &A, std::vector<double> const &b, std::vector<double> const &c, double v)
-    : v(v), A(b.size(), c.size() + b.size()), m(b.size()), n(c.size()), b(b), c(c.size() + b.size(), 0.0) {
+SlackFormTask::SlackFormTask(StandardTask const& task) {
+    m = task.getA().size();
+    n = task.getTargetFunction().size();
+
+    targetFunction.resize(task.getA().size() + task.getTargetFunction().size(), 0.0);
+    freeTerm = task.getFreeTerm();
+
+    A.resize(task.getA().size(), Vector(task.getA().size() + task.getTargetFunction().size(), 0.0));
+    b = task.getB();
 
     // Заполняем строки ограничений
     for (int i = 0; i < m; i++) {
         for (int j = 0; j < n; j++) {
-            this->A[i][j] = A[i][j];
+            A[i][j] = task.getA()[i][j];
         }
     }
 
     // Добавляем слэк-переменные (единичная матрица)
     for (int i = 0; i < m; i++) {
-        this->A[i][n+i] = 1;
+        A[i][n+i] = 1;
     }
 
     // Строка целевой функции: для задачи максимизации запишем c
     for (int j = 0; j < n; j++) {
-        this->c[j] = c[j];
+        targetFunction[j] = task.getTargetFunction()[j];
     }
 
     // Инициализируем базисные переменные - слэк-переменные (индексы n, n+1, …, n+m-1)
@@ -147,4 +148,14 @@ SlackFormTask::SlackFormTask(Matrix const &A, std::vector<double> const &b, std:
     }
 }
 
+void SlackFormTask::print() {
+    std::cout << "\nЗадача ЛП в канонической форме" << std::endl;
+    printTargetFunction(targetFunction);
+    for (std::size_t i = 0; i < A.size(); ++i) {
+        for (std::size_t j = 0; j < A[i].size(); ++j) {
+            std::cout << std::format("{}\t", A[i][j]);
+        }
+        std::cout << b[i] << std::endl;
+    }
+}
 

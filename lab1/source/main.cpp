@@ -1,8 +1,11 @@
+#include <Windows.h>
+
 #include <iostream>
 #include <ostream>
 
+#include "StandardTask.h"
 #include "SlackFormTask.h"
-#include "LinearTask.h"
+#include "Task.h"
 
 
 double operator*(std::vector<double> const& v1, std::vector<double> const& v2) {
@@ -23,33 +26,22 @@ void printResult(double result, std::vector<double> const& x) {
 
 
 int main() {
-    LinearTask linearTask(
-        Matrix({
-            {-1, -1, -1, -1, -1},
-            {1, 2, 3, 2, 1}
-        }),
-        Matrix({
-            {1, 2, 3, 4, 5},
-            {4, 1, 2, 3, 5},
-            {3, 4, 1, 5, 2}
-        }),
-        {-10, 20},
-        {30, 40, 50},
-        {-2, -3, -4, -5, -1},
-        0.0,
-        {5}
-    ), dualTask = linearTask.getDualTask();
+    SetConsoleOutputCP(CP_UTF8);
+    SetConsoleCP(CP_UTF8);
+    setlocale(LC_ALL, "ru_RU.UTF-8");
 
-    SlackFormTask slackFormTask(linearTask.getA(), linearTask.getB(), linearTask.getC(), linearTask.getV()),
-        slackFormDualTask(dualTask.getA(), dualTask.getB(), dualTask.getC(), dualTask.getV());
+    Task task("main");
 
-    std::cout << "---- Task ----\n";
-    std::cout << std::format("rank: {}\n", linearTask.getA().getRank());
-    auto result = linearTask.getTrueValues(slackFormTask.simplex());
-    printResult(result * linearTask.getC() + linearTask.getV(), result);
+    task.print();
 
-    std::cout << "---- Dual task ----\n";
-    std::cout << std::format("rank: {}\n", dualTask.getA().getRank());
-    result = dualTask.getTrueValues(slackFormDualTask.simplex());
-    printResult(result * dualTask.getC() + dualTask.getV(), result);
+    StandardTask standardTask(task);
+
+    standardTask.print();
+
+    SlackFormTask slackFormTask(standardTask);
+
+    slackFormTask.print();
+
+    auto result = standardTask.getTrueValues(slackFormTask.simplex());
+    printResult(result * standardTask.getTargetFunction(), result);
 }
