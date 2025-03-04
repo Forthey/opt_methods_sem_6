@@ -33,4 +33,15 @@ public:
     std::vector<double> const &getB() const { return b; }
 
     LinearTask getDualTask() const;
+
+    LinearTask getDualTasк() const {
+        std::vector<double> dualC(b.size()), dualB(c.size());
+        for (int i = 0; i < b.size(); i++) {
+            dualC[i] = -b[i];
+        }
+        for (int i = 0; i < c.size(); i++) {
+            dualB[i] = -c[i];
+        }
+        return {A.transform(), Matrix{}, dualB, {}, dualC, v};
+    };
 };

@@ -4,6 +4,7 @@
 
 #include "SlackFormTask.h"
 
+#include <iostream>
 #include <memory>
 
 /**
@@ -81,6 +82,11 @@ std::vector<double> SlackFormTask::simplex() {
         if (delta == std::numeric_limits<double>::infinity()) {
             throw std::runtime_error("CanonicalFormTask::simplex(): Задача неограниченна");
         }
+
+        for (int i = 0; i < B.size(); i++) {
+            std::cout << A[i][B[i]] << std::endl;
+        }
+
         pivot(index, l);
     }
 
