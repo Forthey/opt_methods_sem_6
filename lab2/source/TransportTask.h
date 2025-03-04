@@ -14,6 +14,12 @@ class TransportTask {
         Supplier
     } fakeOne = Noone;
 
+    Row<double> suppliers;
+    Row<double> consumers;
+    Table<double> pathCosts;
+
+    void parseFileData(std::string const& data);
+
     void balanceTask();
 
     void computePotentials(const std::vector<std::vector<bool> > &isBasic, std::vector<double> &u,
@@ -26,13 +32,12 @@ class TransportTask {
 
     static std::vector<std::pair<std::size_t, std::size_t>> findCycle(std::size_t start_i, std::size_t start_j,
                                                                        Table<bool> const &isBasic);
-
 public:
-    Row<double> suppliers;
-    Row<double> consumers;
-    Table<double> pathCosts;
-
     explicit TransportTask(std::string const &filename);
+
+    Row<double> getSuppliers() const { return suppliers; }
+    Row<double> getConsumers() const { return consumers; }
+    Table<double> getPathCosts() const { return pathCosts; }
 
     Table<double> northwestCornerMethod();
 

@@ -15,14 +15,14 @@ int main() {
     // std::string filename;
     // std::cin >> filename;
 
-    TransportTask transportTask("task.data");
+    TransportTask transportTask("main.json");
 
     std::cout << "\nПоставщики" << std::endl;
-    printRow(transportTask.suppliers);
+    printRow(transportTask.getSuppliers());
     std::cout << "\nПотребители" << std::endl;
-    printRow(transportTask.consumers);
+    printRow(transportTask.getConsumers());
     std::cout << "\nТаблица стоимости" << std::endl;
-    printTable(transportTask.pathCosts);
+    printTable(transportTask.getPathCosts());
 
     std::cout << "\nОпорный план" << std::endl;
     auto basicPlan = transportTask.northwestCornerMethod();

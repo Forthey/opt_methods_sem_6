@@ -3,15 +3,51 @@
 #include <fstream>
 #include <iostream>
 
+#include <nlohmann/json.hpp>
+
 #include "utility/incorrect_format_exception.h"
 
 
+TransportTask::TransportTask(std::string const &filename) {
+    std::ifstream file("tasks/" + filename);
+
+    if (!file.is_open()) {
+        std::cerr << "Невозможно отрыть файл: " << filename << std::endl;
+        exit(1);
+    }
+
+    std::string data;
+    std::stringstream ss;
+    ss << file.rdbuf();
+    data = ss.str();
+
+    parseFileData(data);
+
+
+    balanceTask();
+}
+
+
+void TransportTask::parseFileData(std::string const &data) {
+    nlohmann::json json;
+    try {
+        json = nlohmann::json::parse(data);
+
+        suppliers = Row<double>(json.at("suppliers"));
+        consumers = Row<double>(json.at("consumers"));
+        pathCosts = Table<double>(json.at("path_costs"));
+    } catch (nlohmann::json::parse_error const &) {
+    } catch (nlohmann::json::type_error const &) {
+        throw IncorrectFormatException();
+    }
+}
+
 void TransportTask::balanceTask() {
     double supply = 0.0, demand = 0.0;
-    for (double supplier: suppliers) {
+    for (double const supplier: suppliers) {
         supply += supplier;
     }
-    for (double consumer: consumers) {
+    for (double const consumer: consumers) {
         demand += consumer;
     }
     if (demand > supply) {
@@ -23,47 +59,6 @@ void TransportTask::balanceTask() {
     }
 }
 
-TransportTask::TransportTask(std::string const &filename) {
-    std::ifstream file(filename);
-
-    if (!file.is_open()) {
-        std::cerr << "Невозможно отрыть файл: " << filename << std::endl;
-        exit(1);
-    }
-
-    std::size_t suppliersCnt, consumersCnt;
-
-    if (!(file >> suppliersCnt >> consumersCnt)) {
-        throw IncorrectFormatException(filename);
-    }
-
-    suppliers.resize(suppliersCnt);
-    consumers.resize(consumersCnt);
-    pathCosts.resize(suppliersCnt);
-
-    for (std::size_t i = 0; i < suppliersCnt; ++i) {
-        if (!(file >> suppliers[i])) {
-            throw IncorrectFormatException(filename);
-        }
-    }
-
-    for (std::size_t i = 0; i < consumersCnt; ++i) {
-        if (!(file >> consumers[i])) {
-            throw IncorrectFormatException(filename);
-        }
-    }
-
-    for (std::size_t i = 0; i < suppliersCnt; ++i) {
-        pathCosts[i].resize(consumersCnt);
-        for (std::size_t j = 0; j < consumersCnt; ++j) {
-            if (!(file >> pathCosts[i][j])) {
-                throw IncorrectFormatException(filename);
-            }
-        }
-    }
-
-    balanceTask();
-}
 
 Table<double> TransportTask::northwestCornerMethod() {
     Table basicPlan(pathCosts.size(), Row<double>(pathCosts[0].size()));
@@ -94,9 +89,10 @@ Table<double> TransportTask::northwestCornerMethod() {
     return basicPlan;
 }
 
+
 Table<double> TransportTask::potentialsMethod(
     Table<double> &basicPlan) const {
-    std::size_t m = suppliers.size(), n = consumers.size();
+    std::size_t const m = suppliers.size(), n = consumers.size();
     Row<double> u(m), v(n);
 
     Table isBasic(m, Row(n, false));
@@ -179,9 +175,10 @@ Table<double> TransportTask::potentialsMethod(
     return basicPlan;
 }
 
+
 void TransportTask::computePotentials(const std::vector<std::vector<bool> > &isBasic, std::vector<double> &u,
                                       std::vector<double> &v) const {
-    std::size_t m = suppliers.size(), n = consumers.size();
+    std::size_t const m = suppliers.size(), n = consumers.size();
 
     u.assign(m, std::numeric_limits<double>::max());
     v.assign(n, std::numeric_limits<double>::max());
@@ -214,7 +211,7 @@ bool TransportTask::dfsCycle(std::size_t cur_i, std::size_t cur_j, std::size_t s
                              std::vector<std::pair<std::size_t, std::size_t> > &cycle,
                              std::vector<std::vector<bool> > &visited,
                              bool horizontal) {
-    std::size_t m = isBasic.size(), n = isBasic[0].size();
+    std::size_t const m = isBasic.size(), n = isBasic[0].size();
 
     // Если вернулись в стартовую ячейку и цикл содержит хотя бы 4 элемента, цикл найден.
     if (cur_i == start_i && cur_j == start_j && cycle.size() >= 4) {
@@ -254,6 +251,7 @@ bool TransportTask::dfsCycle(std::size_t cur_i, std::size_t cur_j, std::size_t s
     }
     return false;
 }
+
 
 /// Функция, ищущая цикл (замкнутый контур) с началом в (start_i, start_j)
 std::vector<std::pair<std::size_t, std::size_t>> TransportTask::findCycle(std::size_t start_i, std::size_t start_j,
