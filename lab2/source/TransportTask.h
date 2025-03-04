@@ -18,6 +18,6 @@ public:
     std::vector<std::vector<std::size_t>> pathCosts;
 
     explicit TransportTask(std::string const& filename);
-    void northwestCornerMethod();
+    std::vector<std::vector<std::size_t>> northwestCornerMethod();
 };
 

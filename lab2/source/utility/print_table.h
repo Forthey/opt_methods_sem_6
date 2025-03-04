@@ -5,7 +5,7 @@
 
 void printRow(std::vector<std::size_t> const& row) {
     for (std::size_t i = 0; i < row.size(); i++) {
-        std::cout << row[i] << (i == row.size() - 1 ? "\n " : " ");
+        std::cout << row[i] << (i == row.size() - 1 ? "\n" : "\t");
     }
 }
 

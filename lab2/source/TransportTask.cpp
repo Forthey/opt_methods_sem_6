@@ -65,5 +65,31 @@ TransportTask::TransportTask(std::string const &filename) {
     balanceTask();
 }
 
-void TransportTask::northwestCornerMethod() {
+std::vector<std::vector<std::size_t>> TransportTask::northwestCornerMethod() {
+    std::vector basicPlan(pathCosts.size(), std::vector<std::size_t>(pathCosts[0].size()));
+    std::vector suppliers = this->suppliers, consumers = this->consumers;
+
+    std::size_t supIndex = 0, consIndex = 0;
+
+    while (supIndex < suppliers.size() && consIndex < consumers.size()) {
+        if (suppliers[supIndex] > consumers[consIndex]) {
+            basicPlan[supIndex][consIndex] = consumers[consIndex];
+            suppliers[supIndex] -= consumers[consIndex];
+            consumers[consIndex] = 0;
+            consIndex++;
+        } else if (suppliers[supIndex] < consumers[consIndex]) {
+            basicPlan[supIndex][consIndex] = suppliers[supIndex];
+            consumers[consIndex] -= suppliers[supIndex];
+            suppliers[supIndex] = 0;
+            supIndex++;
+        } else {
+            basicPlan[supIndex][consIndex] = suppliers[supIndex];
+            suppliers[supIndex] = 0;
+            consumers[consIndex] = 0;
+            consIndex++;
+            supIndex++;
+        }
+    }
+
+    return basicPlan;
 }
