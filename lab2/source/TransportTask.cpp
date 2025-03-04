@@ -9,7 +9,7 @@
 
 
 TransportTask::TransportTask(std::string const &filename) {
-    std::ifstream file("tasks/" + filename);
+    std::ifstream file(std::format("tasks/{}.json", filename));
 
     if (!file.is_open()) {
         std::cerr << "Невозможно отрыть файл: " << filename << std::endl;
@@ -36,6 +36,13 @@ void TransportTask::parseFileData(std::string const &data) {
         suppliers = Row<double>(json.at("suppliers"));
         consumers = Row<double>(json.at("consumers"));
         pathCosts = Table<double>(json.at("path_costs"));
+
+        if (json.contains("supplier_penalty")) {
+            penalty = Row<double>(json.at("supplier_penalty"));
+        }
+        if (json.contains("consumer_penalty")) {
+            penalty = Row<double>(json.at("consumer_penalty"));
+        }
     } catch (nlohmann::json::parse_error const &) {
     } catch (nlohmann::json::type_error const &) {
         throw IncorrectFormatException();
@@ -53,9 +60,13 @@ void TransportTask::balanceTask() {
     if (demand > supply) {
         fakeOne = Supplier;
         suppliers.emplace_back(demand - supply);
+        pathCosts.emplace_back(penalty);
     } else if (demand < supply) {
         fakeOne = Consumer;
         consumers.emplace_back(supply - demand);
+        for (std::size_t i = 0; i < suppliers.size(); i++) {
+            pathCosts[i].emplace_back(penalty[i]);
+        }
     }
 }
 
@@ -270,7 +281,7 @@ std::vector<std::pair<std::size_t, std::size_t>> TransportTask::findCycle(std::s
     return {}; // если цикл не найден
 }
 
-double TransportTask::calculateCosts(Table<double> const &plan) {
+double TransportTask::calculateCosts(Table<double> const &plan) const {
     double totalCost = 0.0;
     for (std::size_t i = 0; i < suppliers.size(); i++) {
         for (std::size_t j = 0; j < consumers.size(); j++) {
@@ -279,4 +290,21 @@ double TransportTask::calculateCosts(Table<double> const &plan) {
     }
 
     return totalCost;
+}
+
+Table<double> TransportTask::restorePlan(Table<double> const &plan) const {
+    Table<double> restoredPlan = plan;
+    switch (fakeOne) {
+        case Noone:
+            break;
+        case Consumer:
+            for (Row<double>& row : restoredPlan) {
+                row.pop_back();
+            }
+            break;
+        case Supplier:
+            restoredPlan.pop_back();
+            break;
+    }
+    return restoredPlan;
 }

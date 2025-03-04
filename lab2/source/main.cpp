@@ -11,11 +11,11 @@ int main() {
 
     std::setlocale(LC_ALL, "ru_RU.UTF-8");
 
-    // std::cout << "Введите имя файла с данными транспортной задачи\n>";
-    // std::string filename;
-    // std::cin >> filename;
+    std::cout << "Введите имя json файла с данными транспортной задачи\n>";
+    std::string filename;
+    std::cin >> filename;
 
-    TransportTask transportTask("main.json");
+    TransportTask transportTask(filename);
 
     std::cout << "\nПоставщики" << std::endl;
     printRow(transportTask.getSuppliers());
@@ -30,6 +30,7 @@ int main() {
     std::cout << "Стоимость: " << transportTask.calculateCosts(basicPlan) << std::endl;
 
     std::cout << "\nОптимальный план" << std::endl;
-    printTable(transportTask.potentialsMethod(basicPlan));
-    std::cout << "Стоимость: " << transportTask.calculateCosts(basicPlan) << std::endl;
+    auto optimalPlan = transportTask.potentialsMethod(basicPlan);
+    printTable(transportTask.restorePlan(optimalPlan));
+    std::cout << "Стоимость: " << transportTask.calculateCosts(optimalPlan) << std::endl;
 }

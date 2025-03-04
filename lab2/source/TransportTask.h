@@ -17,6 +17,7 @@ class TransportTask {
     Row<double> suppliers;
     Row<double> consumers;
     Table<double> pathCosts;
+    Row<double> penalty;
 
     void parseFileData(std::string const& data);
 
@@ -43,5 +44,7 @@ public:
 
     Table<double> potentialsMethod(Table<double> &basicPlan) const;
 
-    double calculateCosts(Table<double> const& plan);
+    double calculateCosts(Table<double> const& plan) const;
+
+    Table<double> restorePlan(Table<double> const& plan) const;
 };
