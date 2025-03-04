@@ -1,8 +1,6 @@
 #pragma once
-#include <iostream>
-#include <vector>
+#include "custom_types.h"
 
+void printRow(Row<double> const& row);
 
-void printRow(std::vector<std::int64_t> const& row);
-
-void printTable(std::vector<std::vector<std::int64_t>> const& table);
+void printTable(Table<double> const& table);

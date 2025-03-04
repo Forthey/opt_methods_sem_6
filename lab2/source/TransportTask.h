@@ -4,6 +4,8 @@
 #include <vector>
 #include <cstdint>
 
+#include "utility/custom_types.h"
+
 
 class TransportTask {
     enum FakeOne {
@@ -13,23 +15,28 @@ class TransportTask {
     } fakeOne = Noone;
 
     void balanceTask();
-    void computePotentials(const std::vector<std::vector<bool>> &isBasic, std::vector<double> &u, std::vector<double> &v) const;
-    static bool dfsCycle(int cur_i, int cur_j, int start_i, int start_j,
-              std::vector<std::vector<bool>> const &isBasic,
-              std::vector<std::pair<int,int>> &cycle,
-              std::vector<std::vector<bool>> &visited,
-              bool horizontal);
-    static std::vector<std::pair<int, int>> findCycle(int start_i, int start_j, std::vector<std::vector<bool> > const &isBasic);
+
+    void computePotentials(const std::vector<std::vector<bool> > &isBasic, std::vector<double> &u,
+                           std::vector<double> &v) const;
+
+    static bool dfsCycle(std::size_t cur_i, std::size_t cur_j, std::size_t start_i, std::size_t start_j,
+                         Table<bool> const &isBasic,
+                         std::vector<std::pair<std::size_t, std::size_t>> &cycle, Table<bool> &visited,
+                         bool horizontal);
+
+    static std::vector<std::pair<std::size_t, std::size_t>> findCycle(std::size_t start_i, std::size_t start_j,
+                                                                       Table<bool> const &isBasic);
+
 public:
-    std::vector<std::int64_t> suppliers;
-    std::vector<std::int64_t> consumers;
-    std::vector<std::vector<std::int64_t>> pathCosts;
+    Row<double> suppliers;
+    Row<double> consumers;
+    Table<double> pathCosts;
 
-    explicit TransportTask(std::string const& filename);
-    std::vector<std::vector<std::int64_t>> northwestCornerMethod();
+    explicit TransportTask(std::string const &filename);
 
-    std::vector<std::vector<std::int64_t>> potentialsMethod(std::vector<std::vector<std::int64_t>> &basicPlan) const;
+    Table<double> northwestCornerMethod();
 
-    // std::int64_t calculateCosts()
+    Table<double> potentialsMethod(Table<double> &basicPlan) const;
+
+    double calculateCosts(Table<double> const& plan);
 };
-

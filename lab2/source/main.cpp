@@ -1,7 +1,9 @@
+#include <iostream>
 #include <Windows.h>
 
 #include "utility/print_table.h"
 #include "TransportTask.h"
+
 
 int main() {
     SetConsoleOutputCP(CP_UTF8);
@@ -25,7 +27,9 @@ int main() {
     std::cout << "\nОпорный план" << std::endl;
     auto basicPlan = transportTask.northwestCornerMethod();
     printTable(basicPlan);
+    std::cout << "Стоимость: " << transportTask.calculateCosts(basicPlan) << std::endl;
 
     std::cout << "\nОптимальный план" << std::endl;
     printTable(transportTask.potentialsMethod(basicPlan));
+    std::cout << "Стоимость: " << transportTask.calculateCosts(basicPlan) << std::endl;
 }
