@@ -30,7 +30,10 @@ int main() {
     SetConsoleCP(CP_UTF8);
     setlocale(LC_ALL, "ru_RU.UTF-8");
 
-    Task task("other");
+    std::string filename;
+    std::cout << "Введите название задачи\n>";
+    std::cin >> filename;
+    Task task(filename);
 
     task.print();
 
