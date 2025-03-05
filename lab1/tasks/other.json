@@ -1,0 +1,16 @@
+{
+  "target_function": [2, 3, 4, 5, 1, 0],
+  "equations": [
+    [1, 2, 3, 4, 5, 30],
+    [4, 1, 2, 3, 5, 40],
+    [3, 4, 1, 5, 2, 50]
+  ],
+  "less_in_equations": [
+    [1, 2, 3, 2, 1, 20]
+  ],
+  "greater_in_equations": [
+    [1, 1, 1, 1, 1, 10]
+  ],
+  "greater_than_zero_restriction_indices": [1, 2, 3, 4],
+  "less_than_zero_restriction_indices": []
+}
