@@ -1,20 +1,20 @@
 #pragma once
 
-#include "utility/Matrix.h"
+#include "StandardTask.h"
+#include "utility/custom_types.h"
+#include "utility/matrix_functions.h"
 
+const double EPS = 1e-9;
 
 class SlackFormTask {
     std::size_t n, m;
-    /// Таблица симплекс-метода: m строк для ограничений + 1 строка для целевой функции.
-    /// Всего столбцов: n (исходных переменных) + m (слэк-переменных) + 1 (правые части)
-    Matrix A;
-    std::vector<double> b;
-    std::vector<double> c;
-    std::vector<std::size_t> N; /// Множество индексов небазисных переменных
-    std::vector<std::size_t> B; /// Множество индексов базисных переменных
-    double v; /// Постоянная в целевой фукнции
+    Matrix<double> tableau;
 
-    void pivot(std::size_t& e, std::size_t& l);
+    std::vector<std::size_t> basis;
+
+    double freeTerm; /// Постоянная в целевой фукнции
+
+    void pivot(int& row, int& col);
 
     static std::size_t find(std::vector<std::size_t> const& v, std::size_t value);
     std::pair<std::size_t, double> findMaxCoef();
@@ -22,7 +22,9 @@ public:
     /**
      * @brief Конструктор получает задачу ЛП в стандартной форме и преобразует её в каноническую форму
      */
-    SlackFormTask(Matrix const& A, std::vector<double> const& b, std::vector<double> const& c, double v);
+    SlackFormTask(StandardTask const& task);
 
-    std::vector<double> simplex();
+    double simplex(std::vector<double>& solution);
+
+    void print();
 };

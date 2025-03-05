@@ -1,8 +1,11 @@
+#include <Windows.h>
+
 #include <iostream>
 #include <ostream>
 
+#include "StandardTask.h"
 #include "SlackFormTask.h"
-#include "LinearTask.h"
+#include "Task.h"
 
 
 double operator*(std::vector<double> const& v1, std::vector<double> const& v2) {
@@ -14,7 +17,7 @@ double operator*(std::vector<double> const& v1, std::vector<double> const& v2) {
 }
 
 void printResult(double result, std::vector<double> const& x) {
-    std::cout << result << std::endl;
+    std::cout << std::format("z = {}\n" , result);
     for (std::size_t i = 0; i < x.size(); i++) {
         std::cout << std::format("x{} = {}\t", i + 1, x[i]);
     }
@@ -23,32 +26,28 @@ void printResult(double result, std::vector<double> const& x) {
 
 
 int main() {
-    LinearTask linearTask(
-        Matrix({
-            {1, 0, 1, 1, 0},
-            {0, -1, -1, 0, 1}
-        }),
-        Matrix({
-            {1, 1, 0, 0, 1},
-            {2, 0, 1, 0, 0},
-            {0, 1, 0, 1, 0}
-        }),
-        {10, -2},
-        {6, 8, 7},
-        {2, 1, 3, 4, 1},
-        0.0,
-        {5}
-    ), dualTask = linearTask.getDualTask();
+    SetConsoleOutputCP(CP_UTF8);
+    SetConsoleCP(CP_UTF8);
+    setlocale(LC_ALL, "ru_RU.UTF-8");
 
-    SlackFormTask slackFormTask(linearTask.getA(), linearTask.getB(), linearTask.getC(), linearTask.getV()),
-        slackFormDualTask(dualTask.getA(), dualTask.getB(), dualTask.getC(), dualTask.getV());
+    std::string filename;
+    std::cout << "Введите название задачи\n>";
+    std::cin >> filename;
+    Task task(filename);
 
-    std::cout << linearTask.getA().getRank() << std::endl;
-    std::cout << dualTask.getA().getRank() << std::endl;
+    task.print();
 
-    auto result = linearTask.getTrueValues(slackFormTask.simplex());
-    printResult(result * linearTask.getC() + linearTask.getV(), result);
+    StandardTask standardTask(task);
 
-    result = dualTask.getTrueValues(slackFormDualTask.simplex());
-    printResult(result * dualTask.getC() + dualTask.getV(), result);
+    standardTask.print();
+
+    SlackFormTask slackFormTask(standardTask);
+
+    slackFormTask.print();
+    std::vector<double> solution;
+
+    auto flex = slackFormTask.simplex(solution);
+    auto result = standardTask.getTrueValues(solution);
+    printResult(result * standardTask.getTargetFunction(), result);
+    std::cout << flex << '\n';
 }
