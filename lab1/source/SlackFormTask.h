@@ -4,19 +4,17 @@
 #include "utility/custom_types.h"
 #include "utility/matrix_functions.h"
 
+const double EPS = 1e-9;
 
 class SlackFormTask {
     std::size_t n, m;
-    /// Таблица симплекс-метода: m строк для ограничений + 1 строка для целевой функции.
-    /// Всего столбцов: n (исходных переменных) + m (слэк-переменных) + 1 (правые части)
-    Matrix<double> A;
-    std::vector<double> b;
-    std::vector<double> targetFunction;
-    std::vector<std::size_t> N; /// Множество индексов небазисных переменных
-    std::vector<std::size_t> B; /// Множество индексов базисных переменных
+    Matrix<double> tableau;
+
+    std::vector<std::size_t> basis;
+
     double freeTerm; /// Постоянная в целевой фукнции
 
-    void pivot(std::size_t& e, std::size_t& l);
+    void pivot(int& row, int& col);
 
     static std::size_t find(std::vector<std::size_t> const& v, std::size_t value);
     std::pair<std::size_t, double> findMaxCoef();
@@ -26,7 +24,7 @@ public:
      */
     SlackFormTask(StandardTask const& task);
 
-    std::vector<double> simplex();
+    double simplex(std::vector<double>& solution);
 
     void print();
 };

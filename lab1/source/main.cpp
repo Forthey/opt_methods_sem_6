@@ -30,7 +30,7 @@ int main() {
     SetConsoleCP(CP_UTF8);
     setlocale(LC_ALL, "ru_RU.UTF-8");
 
-    Task task("main");
+    Task task("other");
 
     task.print();
 
@@ -41,7 +41,10 @@ int main() {
     SlackFormTask slackFormTask(standardTask);
 
     slackFormTask.print();
+    std::vector<double> solution;
 
-    auto result = standardTask.getTrueValues(slackFormTask.simplex());
+    auto flex = slackFormTask.simplex(solution);
+    auto result = standardTask.getTrueValues(solution);
     printResult(result * standardTask.getTargetFunction(), result);
+    std::cout << flex << '\n';
 }
