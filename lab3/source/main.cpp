@@ -1,23 +1,17 @@
 #include <cmath>
 #include <iostream>
 
-#include "FunctionWrapper.h"
+#include "alg/AlgsForExtremes.h"
 
-
-double f(double const x) {
-    return 0.5 * x * x - std::sin(x);
-}
-
-bool fValidator(double const x) {
-    static double max = std::sqrt(std::numeric_limits<double>::max());
-
-    return x < max;
-}
 
 int main() {
-    FunctionWrapper wrapper(f, fValidator);
+    FunctionWrapper wrapper(
+        [](double x) -> double { return 0.5 * x * x - std::sin(x); },
+        [](double x) -> bool { return 0.0 <= x && x <= 1.0; }
+    );
 
-    std::cout << wrapper(0.5) << std::endl;
-    std::cout << wrapper(std::numeric_limits<double>::max() / 100.0);
+    std::cout << AlgsForExtremes::findMinViaHalfDivisionMethod(wrapper, 0.0, 1.0, 0.0001) << std::endl;
+
+    std::cout << AlgsForExtremes::findMinViaGoldenRatioMethod(wrapper, 0.0, 1.0, 0.0001) << std::endl;
     return 0;
 }
