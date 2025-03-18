@@ -6,6 +6,7 @@
 #include <nlohmann/json.hpp>
 
 #include "utility/incorrect_format_exception.h"
+#include "utility/print_table.h"
 
 
 TransportTask::TransportTask(std::string const &filename) {
@@ -129,6 +130,7 @@ Table<double> TransportTask::potentialsMethod(
                 if (!isBasic[i][j]) {
                     // не-базисная ячейка
                     double delta = pathCosts[i][j] - (u[i] + v[j]);
+
                     if (delta < minDelta) {
                         minDelta = delta;
                         enter_i = i;
@@ -183,7 +185,64 @@ Table<double> TransportTask::potentialsMethod(
         isBasic[enter_i][enter_j] = true;
     }
 
+    checkForMultiple(basicPlan, isBasic);
+
     return basicPlan;
+}
+
+
+void TransportTask::checkForMultiple(Table<double> &optimalPlan, Table<bool> &isBasic) const {
+    std::size_t const m = suppliers.size(), n = consumers.size();
+    Row<double> u(m), v(n);
+    computePotentials(isBasic, u, v);
+    std::size_t enter_i = 0, enter_j = 0;
+
+    bool isFirst = true;
+    for (int i = 0; i < m; i++) {
+        for (int j = 0; j < n; j++) {
+            if (!isBasic[i][j]) {
+                // не-базисная ячейка
+                double delta = pathCosts[i][j] - (u[i] + v[j]);
+
+                if (delta == 0.0) {
+                    if (isFirst) {
+                        isFirst = false;
+                        continue;
+                    }
+                    auto plan = optimalPlan;
+                    isBasic[i][j] = true;
+                    std::vector<std::pair<std::size_t, std::size_t>> cycle = findCycle(i, j, isBasic);
+                    cycle.pop_back();
+
+                    double theta = std::numeric_limits<double>::max();
+                    std::size_t thetaIndex = -1;
+                    for (std::size_t k = 1; k < cycle.size(); k += 2) {
+                        auto& [i, j] = cycle[k];
+                        if (plan[i][j] < theta) {
+                            theta = plan[i][j];
+                            thetaIndex = k;
+                        }
+                    }
+
+                    // Обновляем базисное решение вдоль найденного цикла:
+                    // прибавляем θ к ячейкам с положительным знаком (чётные позиции)
+                    // и вычитаем θ из ячеек с отрицательным знаком (нечётные позиции)
+                    for (std::size_t k = 0; k < cycle.size(); k++) {
+                        auto& [i, j] = cycle[k];
+                        if (k % 2 == 0) {
+                            plan[i][j] += theta;
+                        }
+                        else {
+                            plan[i][j] -= theta;
+                        }
+                    }
+
+                    printTable(plan);
+                    std::cout << std::endl;
+                }
+            }
+        }
+    }
 }
 
 
@@ -217,7 +276,7 @@ void TransportTask::computePotentials(const std::vector<std::vector<bool> > &isB
 
 /// Рекурсивный DFS для поиска цикла в базисных ячейках с чередованием направлений.
 /// Параметр horizontal указывает, ищем ли перемещение по строке (horizontal = true) или по столбцу.
-bool TransportTask::dfsCycle(std::size_t cur_i, std::size_t cur_j, std::size_t start_i, std::size_t start_j,
+bool TransportTask::dfsCycle(std::size_t curI, std::size_t curJ, std::size_t startI, std::size_t startJ,
                              std::vector<std::vector<bool> > const &isBasic,
                              std::vector<std::pair<std::size_t, std::size_t> > &cycle,
                              std::vector<std::vector<bool> > &visited,
@@ -225,38 +284,40 @@ bool TransportTask::dfsCycle(std::size_t cur_i, std::size_t cur_j, std::size_t s
     std::size_t const m = isBasic.size(), n = isBasic[0].size();
 
     // Если вернулись в стартовую ячейку и цикл содержит хотя бы 4 элемента, цикл найден.
-    if (cur_i == start_i && cur_j == start_j && cycle.size() >= 4) {
+    if (curI == startI && curJ == startJ && cycle.size() >= 4) {
         return true;
     }
     if (horizontal) {
         // Перемещение по строке: перебираем все столбцы текущей строки.
         for (std::size_t j = 0; j < n; j++) {
-            if (j == cur_j) continue;
+            if (j == curJ)
+                continue;
             // Рассматриваем ячейку, если она базисная или является стартовой (для замыкания цикла)
-            if (isBasic[cur_i][j] || (cur_i == start_i && j == start_j)) {
-                if (visited[cur_i][j])
+            if (isBasic[curI][j] || (curI == startI && j == startJ)) {
+                if (visited[curI][j])
                     continue;
-                visited[cur_i][j] = true;
-                cycle.emplace_back(cur_i, j);
-                if(dfsCycle(cur_i, j, start_i, start_j, isBasic, cycle, visited, false))
+                visited[curI][j] = true;
+                cycle.emplace_back(curI, j);
+                if(dfsCycle(curI, j, startI, startJ, isBasic, cycle, visited, false))
                     return true;
                 cycle.pop_back();
-                visited[cur_i][j] = false;
+                visited[curI][j] = false;
             }
         }
     } else {
         // Перемещение по столбцу: перебираем все строки текущего столбца.
         for (std::size_t i = 0; i < m; i++) {
-            if (i == cur_i) continue;
-            if (isBasic[i][cur_j] || (i == start_i && cur_j == start_j)) {
-                if(visited[i][cur_j])
+            if (i == curI)
+                continue;
+            if (isBasic[i][curJ] || (i == startI && curJ == startJ)) {
+                if(visited[i][curJ])
                     continue;
-                visited[i][cur_j] = true;
-                cycle.emplace_back(i, cur_j);
-                if(dfsCycle(i, cur_j, start_i, start_j, isBasic, cycle, visited, true))
+                visited[i][curJ] = true;
+                cycle.emplace_back(i, curJ);
+                if(dfsCycle(i, curJ, startI, startJ, isBasic, cycle, visited, true))
                     return true;
                 cycle.pop_back();
-                visited[i][cur_j] = false;
+                visited[i][curJ] = false;
             }
         }
     }
@@ -265,21 +326,22 @@ bool TransportTask::dfsCycle(std::size_t cur_i, std::size_t cur_j, std::size_t s
 
 
 /// Функция, ищущая цикл (замкнутый контур) с началом в (start_i, start_j)
-std::vector<std::pair<std::size_t, std::size_t>> TransportTask::findCycle(std::size_t start_i, std::size_t start_j,
+std::vector<std::pair<std::size_t, std::size_t>> TransportTask::findCycle(std::size_t startI, std::size_t startJ,
                                                            std::vector<std::vector<bool> > const &isBasic) {
     std::size_t m = isBasic.size(), n = isBasic[0].size();
 
     Table visited(m, Row(n, false));
     std::vector<std::pair<std::size_t, std::size_t>> cycle;
-    cycle.emplace_back(start_i, start_j);
+    cycle.emplace_back(startI, startJ);
     // Пробуем начать с горизонтального перемещения
-    if (dfsCycle(start_i, start_j, start_i, start_j, isBasic, cycle, visited, true))
+    if (dfsCycle(startI, startJ, startI, startJ, isBasic, cycle, visited, true))
         return cycle;
     // Если не найдено, пробуем вертикальное перемещение
-    if (dfsCycle(start_i, start_j, start_i, start_j, isBasic, cycle, visited, false))
+    if (dfsCycle(startI, startJ, startI, startJ, isBasic, cycle, visited, false))
         return cycle;
     return {}; // если цикл не найден
 }
+
 
 double TransportTask::calculateCosts(Table<double> const &plan) const {
     double totalCost = 0.0;

@@ -26,13 +26,15 @@ class TransportTask {
     void computePotentials(const std::vector<std::vector<bool> > &isBasic, std::vector<double> &u,
                            std::vector<double> &v) const;
 
-    static bool dfsCycle(std::size_t cur_i, std::size_t cur_j, std::size_t start_i, std::size_t start_j,
+    static bool dfsCycle(std::size_t curI, std::size_t curJ, std::size_t startI, std::size_t startJ,
                          Table<bool> const &isBasic,
                          std::vector<std::pair<std::size_t, std::size_t>> &cycle, Table<bool> &visited,
                          bool horizontal);
 
-    static std::vector<std::pair<std::size_t, std::size_t>> findCycle(std::size_t start_i, std::size_t start_j,
+    static std::vector<std::pair<std::size_t, std::size_t>> findCycle(std::size_t startI, std::size_t startJ,
                                                                        Table<bool> const &isBasic);
+
+    void checkForMultiple(Table<double> &optimalPlan, Table<bool> &isBasic) const;
 public:
     explicit TransportTask(std::string const &filename);
 
