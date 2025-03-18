@@ -11,6 +11,7 @@ SET(CMAKE_COMPILE_WARNING_AS_ERROR ON)
 set(SOURCE_FILES
         source/main.cpp
         source/alg/AlgsForExtremes.cpp
+        source/BaseTask.cpp
 )
 
 add_executable(${PROJECT_NAME} ${SOURCE_FILES})
