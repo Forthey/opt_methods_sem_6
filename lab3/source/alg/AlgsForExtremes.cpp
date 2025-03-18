@@ -7,7 +7,7 @@ constexpr double GOLDEN_RATIO = (1.0 + std::sqrt(5.0)) / 2.0;
 
 
 double AlgsForExtremes::findMinViaHalfDivisionMethod(FunctionWrapper &f, double a, double b, double epsilon) {
-    double const delta = epsilon / 10.0;
+    double const delta = epsilon / 4.0;
 
     while (b - a >= epsilon) {
         double const
