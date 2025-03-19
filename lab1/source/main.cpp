@@ -1,6 +1,7 @@
 #include <Windows.h>
 
 #include <iostream>
+#include <memory>
 #include <ostream>
 
 #include "StandardTask.h"
@@ -39,15 +40,35 @@ int main() {
 
     StandardTask standardTask(task);
 
-    standardTask.print();
+    // standardTask.print();
 
     SlackFormTask slackFormTask(standardTask);
 
-    slackFormTask.print();
+    // slackFormTask.print();
     std::vector<double> solution;
 
     auto flex = slackFormTask.simplex(solution);
     auto result = standardTask.getTrueValues(solution);
     printResult(result * standardTask.getTargetFunction(), result);
     std::cout << flex << '\n';
+
+
+    std::cout << "\n---------- ДВОЙСТВЕННАЯ ЗАДАЧА -----------\n" << std::endl;
+    auto dualTask = std::shared_ptr<Task>(task.makeDualTask());
+
+    dualTask->print();
+
+    StandardTask standardDualTask(*dualTask);
+
+    // standardDualTask.print();
+
+    SlackFormTask slackFormDualTask(standardDualTask);
+
+    // slackFormDualTask.print();
+
+    slackFormDualTask.simplex(solution);
+    auto dualResult = standardDualTask.getTrueValues(solution);
+    printResult(dualResult * dualTask->getTargetFunction(), dualResult);
+
+    return 0;
 }

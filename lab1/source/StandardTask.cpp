@@ -4,38 +4,45 @@
 
 #include "utility/print_matrix.h"
 
-StandardTask::StandardTask(Task const& task) {
+StandardTask::StandardTask(Task const &task) {
     targetFunction = task.getTargetFunction();
-    freeTerm = targetFunction.back();
-    targetFunction.pop_back();
+    if (task.getType() == Task::Minimization) {
+        for (double& coef : targetFunction) {
+            coef = -coef;
+        }
+        targetFunctionSignChanged = true;
+    }
+    freeTerm = 0.0;
     n = targetFunction.size();
 
-    for (auto& lessInEq : task.getLessInEquations()) {
-        A.emplace_back(lessInEq);
-        b.emplace_back(lessInEq.back());
-        A.back().pop_back();
-    }
+    for (auto &restriction: task.getRestrictions()) {
+        auto& coefs = restriction.coefficients;
 
-    // Добавление >= как <= с противоположными по знаку коэффициентами
-    for (auto& greaterIneq : task.getGreaterInEquations()) {
-        A.emplace_back(greaterIneq.size() - 1);
-        for (std::size_t i = 0; i < A.back().size(); ++i) {
-            A.back()[i] = -greaterIneq[i];
+        switch (restriction.type) {
+            case Task::Restriction::Equation:
+                A.emplace_back(coefs);
+                b.emplace_back(coefs.back());
+                A.back().pop_back();
+
+                A.emplace_back(coefs.size() - 1);
+                for (std::size_t i = 0; i < A.back().size(); ++i) {
+                    A.back()[i] = -coefs[i];
+                }
+                b.emplace_back(-coefs.back());
+                break;
+            case Task::Restriction::LessInEquation:
+                A.emplace_back(coefs);
+                b.emplace_back(coefs.back());
+                A.back().pop_back();
+                break;
+            case Task::Restriction::GreaterInEquation:
+                A.emplace_back(coefs.size() - 1);
+                for (std::size_t i = 0; i < A.back().size(); ++i) {
+                    A.back()[i] = -coefs[i];
+                }
+                b.emplace_back(-coefs.back());
+                break;
         }
-        b.emplace_back(-greaterIneq.back());
-    }
-
-    // Добавление = как композиции <= и >=
-    for (auto& equation : task.getEquations()) {
-        A.emplace_back(equation);
-        b.emplace_back(equation.back());
-        A.back().pop_back();
-
-        A.emplace_back(equation.size() - 1);
-        for (std::size_t i = 0; i < A.back().size(); ++i) {
-            A.back()[i] = -equation[i];
-        }
-        b.emplace_back(-equation.back());
     }
 
     std::set<std::size_t> notRestrictedIndices;
@@ -44,24 +51,25 @@ StandardTask::StandardTask(Task const& task) {
     }
 
     // Смена знака у <= 0 ограничений
-    for (auto& index : task.getLessThanZeroRestrictionIndices()) {
+    for (auto &index: task.getLessThanZeroRestrictionIndices()) {
         targetFunction[index] = -targetFunction[index];
-        for (auto& row : A) {
+        for (auto &row: A) {
             row[index] = -row[index];
         }
         changedSignIndices.insert(index);
         notRestrictedIndices.erase(index);
     }
 
-    for (auto& index : task.getGreaterThanZeroRestrictionIndices()) {
+    for (auto &index: task.getGreaterThanZeroRestrictionIndices()) {
         notRestrictedIndices.erase(index);
     }
 
     // Разбиение переменных
-    for (auto& index : notRestrictedIndices) {
+    for (auto &index: notRestrictedIndices) {
         targetFunction.emplace_back(-targetFunction[index]);
         splitVarIndices.emplace(index, targetFunction.size() - 1);
-        for (auto& row : A) {
+        for (std::size_t i = 0; i < A.size(); ++i) {
+            auto &row = A[i];
             row.emplace_back(-row[index]);
         }
     }
@@ -72,8 +80,8 @@ void StandardTask::print() {
     printTargetFunction(targetFunction);
     for (std::size_t i = 0; i < A.size(); ++i) {
         std::cout << "\t";
-        for (std::size_t j = 0; j < A[i].size(); ++j) {
-            std::cout << std::format("{}\t", A[i][j]);
+        for (double & coef : A[i]) {
+            std::cout << std::format("{}\t", coef);
         }
         std::cout << b[i] << std::endl;
     }

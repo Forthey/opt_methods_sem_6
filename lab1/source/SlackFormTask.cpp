@@ -52,7 +52,7 @@ double SlackFormTask::simplex(std::vector<double> &solution) {
         // Находим опорную строку методом минимального отношения (правый столбец делим на положительный элемент в pivotCol)
         int pivotRow = -1;
         double minRatio = std::numeric_limits<double>::infinity();
-        for (int i = 0; i < rows - 1; i++) {
+        for (int i = 0; i < rows; i++) {
             if (tableau[i][pivotCol] > EPS) {
                 double ratio = tableau[i].back() / tableau[i][pivotCol];
                 if (ratio < minRatio) {
@@ -109,13 +109,13 @@ SlackFormTask::SlackFormTask(StandardTask const& task) {
 }
 
 void SlackFormTask::print() {
-    // std::cout << "\nЗадача ЛП в канонической форме" << std::endl;
-    // printTargetFunction(targetFunction);
-    // for (std::size_t i = 0; i < A.size(); ++i) {
-    //     for (std::size_t j = 0; j < A[i].size(); ++j) {
-    //         std::cout << std::format("{}\t", A[i][j]);
-    //     }
-    //     std::cout << b[i] << std::endl;
-    // }
+    std::cout << "\nЗадача ЛП в канонической форме" << std::endl;
+    printTargetFunction(tableau[0]);
+    for (std::size_t i = 0; i < tableau.size(); ++i) {
+        for (std::size_t j = 0; j < tableau[i].size(); ++j) {
+            std::cout << std::format("{}\t", tableau[i][j]);
+        }
+        std::cout << std::endl;
+    }
 }
 

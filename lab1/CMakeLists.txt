@@ -6,6 +6,8 @@ project(lab1)
 
 SET(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
 
+SET(CMAKE_COMPILE_WARNING_AS_ERROR ON)
+
 SET(SOURCE_FILES
         source/main.cpp
         source/Task.cpp

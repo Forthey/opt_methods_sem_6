@@ -13,6 +13,7 @@
 class StandardTask {
     std::size_t n;
     Vector<double> targetFunction;
+    bool targetFunctionSignChanged = false;
     double freeTerm;
     Matrix<double> A;
     Vector<double> b;
@@ -27,7 +28,9 @@ public:
 
     std::size_t getDim() const { return n; }
 
-    Vector<double> const& getTargetFunction() const { return targetFunction; }
+    Vector<double> const& getTargetFunction() const {
+        return targetFunction;
+    }
 
     double getFreeTerm() const { return freeTerm; }
 
