@@ -42,6 +42,8 @@ int main() {
 
     // standardTask.print();
 
+    std::cout << "Ранг матрицы задачи: " << getRank(task.getRestrictionsAsMatrix()) << std::endl;
+
     SlackFormTask slackFormTask(standardTask);
 
     // slackFormTask.print();
@@ -61,6 +63,7 @@ int main() {
     StandardTask standardDualTask(*dualTask);
 
     // standardDualTask.print();
+    std::cout << "Ранг матрицы двойственной задачи: " << getRank(dualTask->getRestrictionsAsMatrix()) << std::endl;
 
     SlackFormTask slackFormDualTask(standardDualTask);
 

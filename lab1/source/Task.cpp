@@ -92,6 +92,16 @@ Task *Task::makeDualTask() const {
     return task;
 }
 
+Matrix<double> Task::getRestrictionsAsMatrix() const {
+    Matrix<double> matr;
+
+    for (auto& restriction : restrictions) {
+        matr.emplace_back(restriction.coefficients);
+    }
+
+    return matr;
+}
+
 void Task::print() {
     std::cout << "\nЗадача ЛП" << std::endl;
     printTargetFunction(targetFunction);

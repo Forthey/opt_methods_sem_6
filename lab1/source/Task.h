@@ -39,6 +39,8 @@ public:
 
     Vector<Restriction> const &getRestrictions() const { return restrictions; }
 
+    Matrix<double> getRestrictionsAsMatrix() const;
+
     Vector<std::size_t> const &getGreaterThanZeroRestrictionIndices() const { return greaterThanZeroRestrictionIndices; }
 
     Vector<std::size_t> const &getLessThanZeroRestrictionIndices() const { return lessThanZeroRestrictionIndices; }
