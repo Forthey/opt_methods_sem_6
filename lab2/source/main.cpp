@@ -29,7 +29,7 @@ int main() {
     printTable(basicPlan);
     std::cout << "Стоимость: " << transportTask.calculateCosts(basicPlan) << std::endl;
 
-    std::cout << "\nОптимальный план" << std::endl;
+    std::cout << "\nОптимальные планы" << std::endl;
     auto optimalPlan = transportTask.potentialsMethod(basicPlan);
     printTable(transportTask.restorePlan(optimalPlan));
     std::cout << "Стоимость: " << transportTask.calculateCosts(optimalPlan) << std::endl;
