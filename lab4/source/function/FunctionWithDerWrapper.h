@@ -1,10 +1,11 @@
 #pragma once
 
-#include "SimpleFunctionWrapper.h"
+#include "FunctionWrapper.h"
+
 
 template<std::uint8_t maxDerivative = 0, std::uint8_t argNum = 2>
 class FunctionWithDerWrapper {
-    std::array<SimpleFunctionWrapper<argNum>, maxDerivative + 1> function;
+    std::array<FunctionWrapper<argNum>, maxDerivative + 1> function;
 
 public:
     class FunctionWrapperException : public std::exception {
@@ -17,18 +18,18 @@ public:
         [[nodiscard]] char const *what() const noexcept override { return msg.c_str(); }
     };
 
-    explicit FunctionWithDerWrapper(std::vector<SimpleFunctionWrapper<argNum> > functions)
+    explicit FunctionWithDerWrapper(std::vector<FunctionWrapper<argNum> > functions)
         : function(std::move(functions)) {
     }
 
     template<
         typename... FunctionWithDerivatives,
-        typename = std::enable_if_t<(std::is_same_v<FunctionWithDerivatives, SimpleFunctionWrapper<argNum> > && ...)> >
+        typename = std::enable_if_t<(std::is_same_v<FunctionWithDerivatives, FunctionWrapper<argNum> > && ...)> >
     explicit FunctionWithDerWrapper(FunctionWithDerivatives... function) : function{function...} {
         static_assert(sizeof...(FunctionWithDerivatives) == maxDerivative + 1, "Incorrect number of arguments!");
     }
 
-    SimpleFunctionWrapper<argNum> const &operator[](std::uint8_t derivativeOrder = 0) const {
+    FunctionWrapper<argNum> const &operator[](std::uint8_t derivativeOrder = 0) const {
         if (derivativeOrder >= function.size()) {
             throw FunctionWrapperException(
                 std::format(

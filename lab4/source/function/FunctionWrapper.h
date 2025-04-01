@@ -6,12 +6,21 @@
 
 
 template<std::uint8_t argNum = 2>
-class SimpleFunctionWrapper {
+class FunctionWrapper {
     using Function = std::function<double(RealVector<argNum> const &)>;
     using ValidatorFunction = std::function<bool(RealVector<argNum> const &)>;
 
     Function function;
     ValidatorFunction validator;
+
+    static bool standardValidator(RealVector<argNum> const &x) {
+        for (std::uint8_t i = 0; i < argNum; ++i) {
+            if (!std::isfinite(x[i])) {
+                return false;
+            }
+        }
+        return true;
+    }
 
 public:
     class FunctionValidationException : public std::exception {
@@ -19,13 +28,13 @@ public:
 
     public:
         explicit FunctionValidationException(RealVector<argNum> const &x)
-            : msg(std::format("Validation error for x = {}", RealVectorToString<argNum>(x))) {
+            : msg(std::format("Validation error for x = {}", x.toString())) {
         }
 
         [[nodiscard]] char const *what() const noexcept override { return msg.c_str(); }
     };
 
-    SimpleFunctionWrapper(Function function, ValidatorFunction validator)
+    explicit FunctionWrapper(Function function, ValidatorFunction validator = standardValidator)
         : function(std::move(function)), validator(std::move(validator)) {
     }
 

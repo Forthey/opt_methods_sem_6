@@ -2,18 +2,21 @@
 #include <cmath>
 #include <iostream>
 
-#include "alg/FunctionWrapper.h"
-#include "function.h"
+#include "function/FunctionWithDerWrapper.h"
+#include "function/function.h"
+#include "alg/AlgsForExtremes.h"
 
 
 int main() {
-    FunctionWithDerWrapper<2> f(
-        SimpleFunctionWrapper<>(function, standardValidator),
-        SimpleFunctionWrapper<>(functionDerivative, standardValidator),
-        SimpleFunctionWrapper<>(functionDerivative2, standardValidator)
-    );
+    FunctionWithDerWrapper<2> func{
+            FunctionWrapper<2>(function),
+            FunctionWrapper<2>(functionDerivative),
+            FunctionWrapper<2>(functionDerivative2)
+    };
 
-    std::cout << f[1](1.0, 1.0) << std::endl;
+    std::cout << AlgsForExtremes::gradientMethod<2>(func[0], func[1], 0.1).toString() << std::endl;
+    std::cout << AlgsForExtremes::gradientMethod<2>(func[0], func[1], 0.01).toString() << std::endl;
+    std::cout << AlgsForExtremes::gradientMethod<2>(func[0], func[1], 0.001).toString() << std::endl;
 
     return EXIT_SUCCESS;
 }
