@@ -2,6 +2,7 @@
 #include <array>
 #include <string>
 #include <cstdint>
+#include <sstream>
 
 
 template<std::uint8_t size = 2>
@@ -22,18 +23,33 @@ public:
         }
     }
 
-    [[nodiscard]] std::string toString() const {
+    [[nodiscard]] std::string toString(double const epsilon = 0.00001) const {
         std::string result = "(";
 
         for (std::uint8_t i = 0; i < size; ++i) {
             if (i == size - 1) {
-                result += std::to_string(data[i]) + ")";
+                result += toStringWithPrecision(data[i], epsilon) + ")";
             } else {
-                result += std::to_string(data[i]) + ", ";
+                result += toStringWithPrecision(data[i], epsilon) + ", ";
             }
         }
 
         return result;
+    }
+
+    static std::string toStringWithPrecision(double const value, double epsilon) {
+        int precision = 0;
+        while (epsilon < 1.0) {
+            epsilon *= 10.0;
+            precision++;
+        }
+        ++precision;
+
+        std::ostringstream out;
+        out.precision(precision);
+        out << std::fixed << value;
+
+        return std::move(out).str();
     }
 
     double normOfDifference(RealVector const &x) {
@@ -59,16 +75,6 @@ public:
 
         for (std::uint8_t i = 0; i < size; ++i) {
             result[i] = data[i] - x[i];
-        }
-
-        return result;
-    }
-
-    RealVector operator-(double value) {
-        RealVector result;
-
-        for (std::uint8_t i = 0; i < size; ++i) {
-            result[i] = data[i] - value;
         }
 
         return result;

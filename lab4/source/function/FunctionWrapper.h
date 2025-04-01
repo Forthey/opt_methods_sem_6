@@ -5,9 +5,9 @@
 #include "RealVector.h"
 
 
-template<std::uint8_t argNum = 2>
+template<std::uint8_t argNum = 2, typename ReturnValue = double>
 class FunctionWrapper {
-    using Function = std::function<double(RealVector<argNum> const &)>;
+    using Function = std::function<ReturnValue(RealVector<argNum> const &)>;
     using ValidatorFunction = std::function<bool(RealVector<argNum> const &)>;
 
     Function function;
@@ -38,7 +38,7 @@ public:
         : function(std::move(function)), validator(std::move(validator)) {
     }
 
-    double operator()(RealVector<argNum> const &x) const {
+    ReturnValue operator()(RealVector<argNum> const &x) const {
         if (!validator(x)) {
             throw FunctionValidationException(x);
         }
@@ -49,7 +49,7 @@ public:
     template<
         typename... Values,
         typename = std::enable_if_t<(std::is_same_v<Values, double> && ...)> >
-    double operator()(Values... x) const {
+    ReturnValue operator()(Values... x) const {
         static_assert(sizeof...(Values) == argNum, "Incorrect number of arguments!");
 
         return operator()(RealVector<argNum>{x...});

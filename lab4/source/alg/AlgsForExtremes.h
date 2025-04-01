@@ -10,22 +10,21 @@ public:
     AlgsForExtremes() = delete;
 
     template <std::uint8_t argNum>
-    static RealVector<argNum> gradientMethod(FunctionWrapper<argNum> const& f, FunctionWrapper<argNum> const& df, double epsilon = 0.01) {
-        RealVector<argNum> x1, x2;
-        double df_x1 = 0.0;
+    static RealVector<argNum> gradientMethod(FunctionWrapper<argNum> const& f, FunctionWrapper<argNum, RealVector<argNum>> const& df, double epsilon = 0.01) {
+        RealVector<argNum> x1, x2, df_x1;
 
         auto wrapper = FunctionWrapper<1>(
             [&df_x1, &x1, &f](RealVector<1> const& coef) -> double {
-                return f(x1 - coef[0] * df_x1);
+                return f(x1 - df_x1 * coef[0]);
         });
 
         do {
             x1 = x2;
             df_x1 = df(x1);
 
-            double coef = goldenRatioMethod(wrapper, 0.0, 10.0, epsilon);
+            double coef = goldenRatioMethod(wrapper, 0.0, 10.0, epsilon / 100.0);
 
-            x2 = x1 - coef * df(x2);
+            x2 = x1 - df(x1) * coef;
         } while (x1.normOfDifference(x2) >= epsilon);
 
         return x2;
