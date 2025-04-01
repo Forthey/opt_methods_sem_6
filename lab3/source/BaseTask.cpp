@@ -12,6 +12,7 @@ std::string BaseTask::toStringWithPrecision(double const value, double epsilon) 
         epsilon *= 10.0;
         precision++;
     }
+    ++precision;
 
     std::ostringstream out;
     out.precision(precision);
