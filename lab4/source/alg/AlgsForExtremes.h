@@ -9,14 +9,16 @@ class AlgsForExtremes {
 public:
     AlgsForExtremes() = delete;
 
-    template <std::uint8_t argNum>
-    static RealVector<argNum> gradientMethod(FunctionWrapper<argNum> const& f, FunctionWrapper<argNum, RealVector<argNum>> const& df, double epsilon = 0.01) {
+    template<std::uint8_t argNum>
+    static RealVector<argNum> gradientMethod(FunctionWrapper<argNum> const &f,
+                                             FunctionWrapper<argNum, RealVector<argNum> > const &df,
+                                             double epsilon = 0.01) {
         RealVector<argNum> x1, x2, df_x1;
 
         auto wrapper = FunctionWrapper<1>(
-            [&df_x1, &x1, &f](RealVector<1> const& coef) -> double {
+            [&df_x1, &x1, &f](RealVector<1> const &coef) -> double {
                 return f(x1 - df_x1 * coef[0]);
-        });
+            });
 
         do {
             x1 = x2;
@@ -30,7 +32,23 @@ public:
         return x2;
     }
 
-    static double goldenRatioMethod(FunctionWrapper<1> const&f, double a, double b, double epsilon) {
+    template<std::uint8_t argNum>
+    static RealVector<argNum> newtonMethod(FunctionWrapper<argNum> const &f,
+                                             FunctionWrapper<argNum, RealVector<argNum> > const &df,
+                                             FunctionWrapper<argNum, RealMatrix<argNum> > const &hf,
+                                             double epsilon = 0.01) {
+        RealVector<argNum> x1, x2;
+
+        do {
+            x1 = x2;
+
+            x2 = x1 - hf(x1) * df(x1);
+        } while (x1.normOfDifference(x2) >= epsilon);
+
+        return x2;
+    }
+
+    static double goldenRatioMethod(FunctionWrapper<1> const &f, double a, double b, double epsilon) {
         enum savedValue {
             Left,
             Right,
@@ -50,7 +68,7 @@ public:
                         f_x2 = f_x1;
                         f_x1 = f(x1);
                     }
-                break;
+                    break;
                 case Right:
                     if (prev_x == x2) {
                         f_x1 = f(x1);
@@ -58,11 +76,11 @@ public:
                         f_x1 = f_x2;
                         f_x2 = f(x2);
                     }
-                break;
+                    break;
                 case None:
                     f_x1 = f(x1);
-                f_x2 = f(x2);
-                break;
+                    f_x2 = f(x2);
+                    break;
             }
 
             if (f_x1 < f_x2) {
