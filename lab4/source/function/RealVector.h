@@ -17,9 +17,9 @@ public:
         static_assert(sizeof...(Values) == size, "Incorrect number of arguments!");
     }
 
-    RealVector() {
+    explicit RealVector(double value = 0.0) {
         for (std::size_t i = 0; i < size; ++i) {
-            data[i] = 0;
+            data[i] = value;
         }
     }
 
@@ -85,6 +85,16 @@ public:
 
         for (std::uint8_t i = 0; i < size; ++i) {
             result[i] = data[i] * value;
+        }
+
+        return result;
+    }
+
+    double operator*(RealVector const& v) {
+        double result = 0.0;
+
+        for (std::uint8_t i = 0; i < size; ++i) {
+            result += data[i] * v[i];
         }
 
         return result;

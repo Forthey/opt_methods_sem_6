@@ -1,54 +1,122 @@
 #pragma once
+#include <memory>
+
 #include "function/FunctionWrapper.h"
 
 
 constexpr double GOLDEN_RATIO = (1.0 + std::sqrt(5.0)) / 2.0;
 
+RealVector const DEFAULT_X(100.0, 100.0);
+
 
 class AlgsForExtremes {
+    template<std::uint8_t argNum>
+    static RealVector<argNum> exploratorySearch(RealVector<argNum> const &x, double step,
+                                                RealVector<argNum> const &delta,
+                                                FunctionWrapper<argNum> &f) {
+        RealVector<argNum> new_x = x;
+
+        for (std::uint8_t i = 0; i < argNum; i++) {
+            double f_base = f(new_x);
+            new_x[i] += delta[i];
+            double f_new = f(new_x);
+            if (f_new >= f_base) {
+                new_x[i] = x[i] - delta[i];
+                f_new = f(new_x);
+                if (f_new >= f_base) {
+                    new_x[i] = x[i];
+                }
+            }
+        }
+
+        return new_x;
+    }
+
 public:
     AlgsForExtremes() = delete;
 
     template<std::uint8_t argNum>
-    static RealVector<argNum> gradientMethod(FunctionWrapper<argNum> const &f,
-                                             FunctionWrapper<argNum, RealVector<argNum> > const &df,
-                                             double epsilon = 0.01) {
-        RealVector<argNum> x1, x2, df_x1;
+    static RealVector<argNum> gradientMethod(FunctionWrapper<argNum> &f,
+                                             FunctionWrapper<argNum, RealVector<argNum> > &df,
+                                             double epsilon = 0.01, RealVector<argNum> x = DEFAULT_X,
+                                             std::shared_ptr<std::vector<RealVector<argNum> > > chosedCoefs = nullptr) {
+        RealVector<argNum> newX, df_x1;
 
         auto wrapper = FunctionWrapper<1>(
-            [&df_x1, &x1, &f](RealVector<1> const &coef) -> double {
-                return f(x1 - df_x1 * coef[0]);
+            [&df_x1, &x, &f](RealVector<1> const &coef) -> double {
+                return f(x - df_x1 * coef[0]);
             });
 
         do {
-            x1 = x2;
-            df_x1 = df(x1);
+            x = newX;
+            df_x1 = df(x);
 
             double coef = goldenRatioMethod(wrapper, 0.0, 10.0, epsilon / 100.0);
 
-            x2 = x1 - df(x1) * coef;
-        } while (x1.normOfDifference(x2) >= epsilon);
+            newX = x - df_x1 * coef;
 
-        return x2;
+            if (chosedCoefs != nullptr) {
+                chosedCoefs->emplace_back(df_x1);
+            }
+        } while (x.normOfDifference(newX) >= epsilon);
+
+        return newX;
     }
 
     template<std::uint8_t argNum>
-    static RealVector<argNum> newtonMethod(FunctionWrapper<argNum> const &f,
-                                             FunctionWrapper<argNum, RealVector<argNum> > const &df,
-                                             FunctionWrapper<argNum, RealMatrix<argNum> > const &hf,
-                                             double epsilon = 0.01) {
-        RealVector<argNum> x1, x2;
+    static RealVector<argNum> newtonMethod(FunctionWrapper<argNum> &f,
+                                           FunctionWrapper<argNum, RealVector<argNum> > &df,
+                                           FunctionWrapper<argNum, RealMatrix<argNum> > &hf,
+                                           double epsilon = 0.01, RealVector<argNum> x = DEFAULT_X) {
+        RealVector<argNum> newX;
 
         do {
-            x1 = x2;
+            x = newX;
 
-            x2 = x1 - hf(x1) * df(x1);
-        } while (x1.normOfDifference(x2) >= epsilon);
+            newX = x - hf(x) * df(x);
+        } while (x.normOfDifference(newX) >= epsilon);
+
+        return newX;
+    }
+
+
+    template<std::uint8_t argNum>
+    static RealVector<argNum> hookeJeevesMethod(FunctionWrapper<argNum> &f,
+                                                double epsilon = 0.01, RealVector<argNum> x1 = DEFAULT_X,
+                                                double stepSize = 1.0, std::uint32_t maxIterations = 100000) {
+        RealVector<argNum> x2 = x1, delta(stepSize);
+
+        for (std::uint32_t iter = 0; iter < maxIterations; iter++) {
+            auto expPoint = exploratorySearch(x2, stepSize, delta, f);
+
+            double f_exp = f(expPoint);
+            if (f_exp < f(x2)) {
+                RealVector<argNum> pattern;
+                for (std::uint8_t i = 0; i < argNum; i++) {
+                    pattern[i] = expPoint[i] + (expPoint[i] - x1[i]);
+                }
+                x1 = x2;
+                if (f(pattern) < f_exp) {
+                    x2 = pattern;
+                } else {
+                    x2 = expPoint;
+                }
+            } else {
+                stepSize /= 2;
+                for (std::uint8_t i = 0; i < argNum; i++) {
+                    delta[i] = stepSize;
+                }
+                x2 = x1;
+            }
+
+            if (stepSize < epsilon)
+                break;
+        }
 
         return x2;
     }
 
-    static double goldenRatioMethod(FunctionWrapper<1> const &f, double a, double b, double epsilon) {
+    static double goldenRatioMethod(FunctionWrapper<1> &f, double a, double b, double epsilon) {
         enum savedValue {
             Left,
             Right,

@@ -12,6 +12,7 @@ class FunctionWrapper {
 
     Function function;
     ValidatorFunction validator;
+    std::uint64_t useCount = 0ull;
 
     static bool standardValidator(RealVector<argNum> const &x) {
         for (std::uint8_t i = 0; i < argNum; ++i) {
@@ -38,10 +39,11 @@ public:
         : function(std::move(function)), validator(std::move(validator)) {
     }
 
-    ReturnValue operator()(RealVector<argNum> const &x) const {
+    ReturnValue operator()(RealVector<argNum> const &x) {
         if (!validator(x)) {
             throw FunctionValidationException(x);
         }
+        ++useCount;
 
         return function(x);
     }
@@ -49,9 +51,13 @@ public:
     template<
         typename... Values,
         typename = std::enable_if_t<(std::is_same_v<Values, double> && ...)> >
-    ReturnValue operator()(Values... x) const {
+    ReturnValue operator()(Values... x) {
         static_assert(sizeof...(Values) == argNum, "Incorrect number of arguments!");
 
         return operator()(RealVector<argNum>{x...});
     }
+
+    [[nodiscard]] std::uint64_t getUseCount() const { return useCount; }
+
+    void resetUseCount() { useCount = 0ull; }
 };
