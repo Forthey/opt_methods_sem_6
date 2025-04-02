@@ -8,7 +8,9 @@
 
 RealVector<2> const Task::trueMin(-0.1571849514838140095869566960, -1.157184951483814009586956696);
 
-void printTable(std::vector<std::vector<std::string> > const &table) {
+void printTable(std::string const& title, std::vector<std::vector<std::string> > const &table) {
+    static std::mutex mtx;
+
     std::vector<size_t> column_widths(table[0].size(), 0);
     for (std::size_t i = 0; i < table[0].size(); i++) {
         for (std::size_t j = 0; j < table.size(); j++) {
@@ -16,6 +18,9 @@ void printTable(std::vector<std::vector<std::string> > const &table) {
         }
     }
 
+    mtx.lock();
+
+    std::cout << title << std::endl;
     for (const auto &row: table) {
         for (size_t i = 0; i < row.size(); ++i) {
             std::cout << std::format("{:<{}}", row[i], column_widths[i] + 5);
@@ -23,6 +28,8 @@ void printTable(std::vector<std::vector<std::string> > const &table) {
         std::cout << std::endl;
     }
     std::cout << std::endl;
+
+    mtx.unlock();
 }
 
 double Task::function(RealVector<2> const &x) {
@@ -67,8 +74,8 @@ void Task::gradientMethodCalcs() {
         df.resetUseCount();
     }
 
-    std::cout << "GRADIENT METHOD" << std::endl;
-    printTable(table);
+
+    printTable("Градиентный метод", table);
 }
 
 void Task::newtonMethodCalcs() {
@@ -95,8 +102,7 @@ void Task::newtonMethodCalcs() {
         hf.resetUseCount();
     }
 
-    std::cout << "NEWTON METHOD" << std::endl;
-    printTable(table);
+    printTable("Метод Ньютона", table);
 }
 
 void Task::hookeJeevesCalcs() {
@@ -117,8 +123,7 @@ void Task::hookeJeevesCalcs() {
         f.resetUseCount();
     }
 
-    std::cout << "HOOKE JEEVES METHOD" << std::endl;
-    printTable(table);
+    printTable("Метод Хука-Дживса", table);
 }
 
 void Task::checkForOrthogonalityInGradient() {
@@ -129,15 +134,17 @@ void Task::checkForOrthogonalityInGradient() {
     auto coefs = std::make_shared<std::vector<RealVector<2>>>();
     auto result = AlgsForExtremes::gradientMethod<2>(f, df, epsilon, DEFAULT_X, coefs);
 
-    std::cout << "GRADIENT METHOD orthogonality check for e = " << epsilon << std::endl;
+    std::vector<std::vector<std::string> > table = {{"k", "k + 1", "(k) * (k + 1)"}};
+
     for (std::size_t i = 0; i < coefs->size() - 1; ++i) {
-        std::cout << std::format(
-            "{} * {} = {}\n",
-            coefs->at(i).toString(epsilon), coefs->at(i + 1).toString(epsilon),
+        table.emplace_back(std::vector{
+            coefs->at(i).toString(epsilon),
+            coefs->at(i + 1).toString(epsilon),
             RealVector<>::toStringWithPrecision(coefs->at(i) * coefs->at(i + 1), epsilon)
-        );
+        });
     }
-    std::cout << std::endl;
+
+    printTable("Проверка ортогональности звеньев градиентной ломаной в методе Ньютона для e = " + std::to_string(epsilon), table);
 }
 
 void Task::gradientWithNewtonCalcs() {
@@ -165,8 +172,7 @@ void Task::gradientWithNewtonCalcs() {
         hf.resetUseCount();
     }
 
-    std::cout << "GRADIENT + NEWTON" << std::endl;
-    printTable(table);
+    printTable("Градиентный метод + метод Ньютона", table);
 }
 
 void Task::hookeJeevesWithNewtonCalcs() {
@@ -194,6 +200,5 @@ void Task::hookeJeevesWithNewtonCalcs() {
         hf.resetUseCount();
     }
 
-    std::cout << "HOOKE JEEVES + NEWTON" << std::endl;
-    printTable(table);
+    printTable("Метод Хука-Дживса + метод Ньютона", table);
 }

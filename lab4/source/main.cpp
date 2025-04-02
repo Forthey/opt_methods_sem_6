@@ -1,17 +1,28 @@
-#include <cstdlib>
-
+#include <thread>
+#include <vector>
+#include <Windows.h>
 
 #include "Task.h"
 
 
 int main() {
-    Task::gradientMethodCalcs();
-    Task::newtonMethodCalcs();
-    Task::hookeJeevesCalcs();
+    SetConsoleOutputCP(CP_UTF8);
+    SetConsoleCP(CP_UTF8);
 
-    Task::checkForOrthogonalityInGradient();
+    std::setlocale(LC_ALL, "ru_RU.UTF-8");
 
-    Task::gradientWithNewtonCalcs();
-    Task::hookeJeevesWithNewtonCalcs();
+    std::vector<std::thread> tasks;
+
+    tasks.emplace_back(Task::gradientMethodCalcs);
+    tasks.emplace_back(Task::newtonMethodCalcs);
+    tasks.emplace_back(Task::hookeJeevesCalcs);
+    tasks.emplace_back(Task::checkForOrthogonalityInGradient);
+    tasks.emplace_back(Task::gradientWithNewtonCalcs);
+    tasks.emplace_back(Task::hookeJeevesWithNewtonCalcs);
+
+    for (auto& t : tasks) {
+        t.join();
+    }
+
     return EXIT_SUCCESS;
 }

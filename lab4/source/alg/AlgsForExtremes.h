@@ -109,7 +109,7 @@ public:
                 x2 = x1;
             }
 
-            if (stepSize < epsilon)
+            if (stepSize < epsilon / 10.0)
                 break;
         }
 
