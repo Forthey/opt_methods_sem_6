@@ -53,12 +53,17 @@ RealMatrix<2> Task::functionInvertedHessian(RealVector<2> const &x) {
     );
 }
 
+void Task::printFunction() {
+    std::cout << "Функция" << std::endl;
+    std::cout << "f(x, y) = x^2 + (y + 1)^2 + e^(x - 1) + e^y" << std::endl << std::endl;
+}
+
 void Task::gradientMethodCalcs() {
     auto epsilons = {0.1, 0.01, 0.001};
     FunctionWrapper<2, double> f(function);
     FunctionWrapper<2, RealVector<2> > df(functionGradient);
 
-    std::vector<std::vector<std::string> > table = {{"e", "x", "dx", "n_f", "n_df"}};
+    std::vector<std::vector<std::string> > table = {{"e", "(x, y)", "dx", "n_f", "n_df"}};
 
     for (auto &epsilon: epsilons) {
         auto result = AlgsForExtremes::gradientMethod<2>(f, df, epsilon);
@@ -84,7 +89,7 @@ void Task::newtonMethodCalcs() {
     FunctionWrapper<2, RealVector<2> > df(functionGradient);
     FunctionWrapper<2, RealMatrix<2> > hf(functionInvertedHessian);
 
-    std::vector<std::vector<std::string> > table = {{"e", "x", "dx", "n_f", "n_df", "n_hf"}};
+    std::vector<std::vector<std::string> > table = {{"e", "(x, y)", "dx", "n_f", "n_df", "n_hf"}};
 
     for (auto &epsilon: epsilons) {
         auto result = AlgsForExtremes::newtonMethod<2>(f, df, hf, epsilon);
@@ -109,7 +114,7 @@ void Task::hookeJeevesCalcs() {
     auto epsilons = {0.1, 0.01, 0.001};
     FunctionWrapper<2, double> f(function);
 
-    std::vector<std::vector<std::string> > table = {{"e", "x", "dx", "n_f"}};
+    std::vector<std::vector<std::string> > table = {{"e", "(x, y)", "dx", "n_f"}};
 
     for (auto &epsilon: epsilons) {
         auto result = AlgsForExtremes::hookeJeevesMethod<2>(f, epsilon);
@@ -153,7 +158,7 @@ void Task::gradientWithNewtonCalcs() {
     FunctionWrapper<2, RealVector<2> > df(functionGradient);
     FunctionWrapper<2, RealMatrix<2> > hf(functionInvertedHessian);
 
-    std::vector<std::vector<std::string> > table = {{"e", "x", "dx", "n_f", "n_df", "n_hf"}};
+    std::vector<std::vector<std::string> > table = {{"e", "(x, y)", "dx", "n_f", "n_df", "n_hf"}};
 
     for (auto &epsilon: epsilons) {
         auto result = AlgsForExtremes::newtonMethod<2>(f, df, hf, epsilon,
@@ -181,7 +186,7 @@ void Task::hookeJeevesWithNewtonCalcs() {
     FunctionWrapper<2, RealVector<2> > df(functionGradient);
     FunctionWrapper<2, RealMatrix<2> > hf(functionInvertedHessian);
 
-    std::vector<std::vector<std::string> > table = {{"e", "x", "dx", "n_f", "n_df", "n_hf"}};
+    std::vector<std::vector<std::string> > table = {{"e", "(x, y)", "dx", "n_f", "n_df", "n_hf"}};
 
     for (auto &epsilon: epsilons) {
         auto result = AlgsForExtremes::newtonMethod<2>(f, df, hf, epsilon,

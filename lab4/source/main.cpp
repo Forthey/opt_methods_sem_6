@@ -13,6 +13,8 @@ int main() {
 
     std::vector<std::thread> tasks;
 
+    Task::printFunction();
+
     tasks.emplace_back(Task::gradientMethodCalcs);
     tasks.emplace_back(Task::newtonMethodCalcs);
     tasks.emplace_back(Task::hookeJeevesCalcs);

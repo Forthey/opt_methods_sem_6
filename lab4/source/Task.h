@@ -14,6 +14,8 @@ public:
 
     static RealMatrix<2> functionInvertedHessian(RealVector<2> const &x);
 
+    static void printFunction();
+
     static void gradientMethodCalcs();
 
     static void newtonMethodCalcs();
