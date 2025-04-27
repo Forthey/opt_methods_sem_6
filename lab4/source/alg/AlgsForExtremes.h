@@ -6,7 +6,7 @@
 
 constexpr double GOLDEN_RATIO = (1.0 + std::sqrt(5.0)) / 2.0;
 
-RealVector const DEFAULT_X(100.0, 100.0);
+RealVector const DEFAULT_X(1.0, 1.0);
 
 
 class AlgsForExtremes {
@@ -40,7 +40,7 @@ public:
                                              FunctionWrapper<argNum, RealVector<argNum> > &df,
                                              double epsilon = 0.01, RealVector<argNum> x = DEFAULT_X,
                                              std::shared_ptr<std::vector<RealVector<argNum> > > chosedCoefs = nullptr) {
-        RealVector<argNum> newX, df_x1;
+        RealVector<argNum> newX = x, df_x1;
 
         auto wrapper = FunctionWrapper<1>(
             [&df_x1, &x, &f](RealVector<1> const &coef) -> double {
@@ -58,6 +58,7 @@ public:
             if (chosedCoefs != nullptr) {
                 chosedCoefs->emplace_back(df_x1);
             }
+
         } while (x.normOfDifference(newX) >= epsilon);
 
         return newX;
@@ -68,11 +69,10 @@ public:
                                            FunctionWrapper<argNum, RealVector<argNum> > &df,
                                            FunctionWrapper<argNum, RealMatrix<argNum> > &hf,
                                            double epsilon = 0.01, RealVector<argNum> x = DEFAULT_X) {
-        RealVector<argNum> newX;
+        RealVector<argNum> newX = x;
 
         do {
             x = newX;
-
             newX = x - hf(x) * df(x);
         } while (x.normOfDifference(newX) >= epsilon);
 

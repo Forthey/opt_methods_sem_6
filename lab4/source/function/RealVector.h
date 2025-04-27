@@ -3,6 +3,7 @@
 #include <string>
 #include <cstdint>
 #include <sstream>
+#include <cmath>
 
 
 template<std::uint8_t size = 2>
@@ -56,10 +57,20 @@ public:
         double result = 0.0;
 
         for (std::uint8_t i = 0; i < size; ++i) {
-            result = std::max(result, std::abs(data[i] - x[i]));
+            result += (data[i] - x[i]) * (data[i] - x[i]);
         }
 
-        return result;
+        return std::sqrt(result);
+    }
+
+    double norm() {
+        double result = 0.0;
+
+        for (std::uint8_t i = 0; i < size; ++i) {
+            result += data[i] * data[i];
+        }
+
+        return std::sqrt(result);
     }
 
     double& operator[](std::uint8_t index) {

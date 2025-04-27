@@ -132,7 +132,7 @@ void Task::hookeJeevesCalcs() {
 }
 
 void Task::checkForOrthogonalityInGradient() {
-    auto epsilon = 0.000001;
+    auto epsilon = 0.0001;
     FunctionWrapper<2, double> f(function);
     FunctionWrapper<2, RealVector<2> > df(functionGradient);
 
