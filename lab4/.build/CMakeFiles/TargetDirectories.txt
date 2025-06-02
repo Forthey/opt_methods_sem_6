@@ -1,0 +1,3 @@
+C:/Users/AzyaD/OneDrive/Рабочий стол/code/university/opt_methods_sem_6/lab4/.build/CMakeFiles/lab4.dir
+C:/Users/AzyaD/OneDrive/Рабочий стол/code/university/opt_methods_sem_6/lab4/.build/CMakeFiles/edit_cache.dir
+C:/Users/AzyaD/OneDrive/Рабочий стол/code/university/opt_methods_sem_6/lab4/.build/CMakeFiles/rebuild_cache.dir
