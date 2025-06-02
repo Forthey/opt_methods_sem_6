@@ -24,7 +24,7 @@
         "results": [
             {
                 "est_calc_time_seconds": 0.0761065,
-                "min_cost": 100,
+                "min_cost": 102,
                 "name": "genetic"
             },
             {
@@ -44,7 +44,7 @@
         "results": [
             {
                 "est_calc_time_seconds": 0.0785999,
-                "min_cost": 46,
+                "min_cost": 43,
                 "name": "genetic"
             },
             {
@@ -64,7 +64,7 @@
         "results": [
             {
                 "est_calc_time_seconds": 0.0889695,
-                "min_cost": 55,
+                "min_cost": 54,
                 "name": "genetic"
             },
             {
