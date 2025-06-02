@@ -78,7 +78,8 @@ std::vector<Graph> generateGraphs(int minSize, int maxSize) {
     std::vector<Graph> graphs;
 
     for (int i = minSize; i <= maxSize; i++) {
-        graphs.push_back(Graph::generateSymmetricConnectedGraph(i));
+        int addedEdges = i == 2 ? 0 : (i < 5 ? i / 2 : i * i / 2);
+        graphs.push_back(Graph::generateHamiltonianGraph(i));
     }
 
     return graphs;

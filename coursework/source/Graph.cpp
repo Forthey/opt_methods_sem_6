@@ -57,41 +57,47 @@ bool Graph::saveToJson(const std::string &filename) const {
     return true;
 }
 
-Graph Graph::generateSymmetricConnectedGraph(int n, int minWeight, int maxWeight) {
-    Graph g(n);
+Graph Graph::generateHamiltonianGraph(int n, int extra_edges, int max_weight) {
+    Graph graph(n);
+
+    std::vector<std::vector<int>> adj(n, std::vector<int>(n, std::numeric_limits<int>::max()));
 
     std::mt19937 rng(time(nullptr));
-    std::uniform_int_distribution<int> dist(minWeight, maxWeight);
+    std::uniform_int_distribution<int> weight_dist(1, max_weight);
 
-    std::vector<std::vector<int>> adjMatrix(n, std::vector<int>(n, 0));
-
-    // Сначала строим связный граф в виде остовного дерева
-    std::vector<bool> visited(n, false);
-    visited[0] = true;
-
-    for (int i = 1; i < n; ++i) {
-        int from;
-        do {
-            from = rng() % i;  // выбираем случайную уже посещённую вершину
-        } while (!visited[from]);
-
-        int weight = dist(rng);
-        adjMatrix[i][from] = adjMatrix[from][i] = weight;
-        visited[i] = true;
-    }
-
-    // Добавляем дополнительные случайные рёбра для плотности
-    int extraEdges = n;  // можно настроить плотность
-    for (int k = 0; k < extraEdges; ++k) {
-        int i = rng() % n;
-        int j = rng() % n;
-        if (i != j && adjMatrix[i][j] == 0) {
-            int weight = dist(rng);
-            adjMatrix[i][j] = adjMatrix[j][i] = weight;
+    // Полный граф
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            adj[i][j] = adj[j][i] = weight_dist(rng);
         }
     }
 
-    g.adj = std::move(adjMatrix);
+    // // 1. Создаём случайный гамильтонов цикл
+    // std::vector<int> nodes(n);
+    // for (int i = 0; i < n; ++i) nodes[i] = i;
+    // std::shuffle(nodes.begin(), nodes.end(), rng);
+    //
+    // for (int i = 0; i < n; ++i) {
+    //     int u = nodes[i];
+    //     int v = nodes[(i + 1) % n];
+    //     int w = weight_dist(rng);
+    //     adj[u][v] = adj[v][u] = w;
+    // }
+    //
+    // // 2. Добавляем случайные дополнительные рёбра
+    // std::uniform_int_distribution<int> node_dist(0, n - 1);
+    // int added = 0;
+    // while (added < extra_edges) {
+    //     int u = node_dist(rng);
+    //     int v = node_dist(rng);
+    //     if (u == v || adj[u][v] != std::numeric_limits<int>::max()) continue;
+    //
+    //     int w = weight_dist(rng);
+    //     adj[u][v] = adj[v][u] = w;
+    //     ++added;
+    // }
 
-    return g;
+    graph.adj = adj;
+
+    return graph;
 }

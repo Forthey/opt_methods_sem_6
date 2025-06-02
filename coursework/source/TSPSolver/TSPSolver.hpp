@@ -24,7 +24,7 @@ protected:
     const Graph& graph;
 
     /// Стоимость лучшего найденного маршрута
-    int bestCost;
+    int bestCost = -1;
 
     /// Сам маршрут: последовательность вершин, включая возврат в стартовую
     std::vector<int> bestPath;

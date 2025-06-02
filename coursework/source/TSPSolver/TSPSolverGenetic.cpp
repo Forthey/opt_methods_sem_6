@@ -13,7 +13,8 @@ void TSPSolverGenetic::solve() {
     for (int i = 0; i < len; i++) base[i] = i + 1;
     for (int i = 0; i < populationSize; i++) {
         population[i] = base;
-        std::shuffle(population[i].begin(), population[i].end(), gen);
+        if (i != 0)
+            std::shuffle(population[i].begin(), population[i].end(), gen);
     }
 
     bestCost = std::numeric_limits<int>::max();

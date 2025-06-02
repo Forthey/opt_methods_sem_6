@@ -3,18 +3,18 @@
         "graph_size": 2,
         "results": [
             {
-                "est_calc_time_seconds": 0.0648315,
-                "min_cost": 64,
+                "est_calc_time_seconds": 0.0734741,
+                "min_cost": 22,
                 "name": "genetic"
             },
             {
-                "est_calc_time_seconds": 1.29e-05,
-                "min_cost": 64,
+                "est_calc_time_seconds": 1.41e-05,
+                "min_cost": 22,
                 "name": "held_karp"
             },
             {
-                "est_calc_time_seconds": 3.6e-06,
-                "min_cost": 64,
+                "est_calc_time_seconds": 3.4e-06,
+                "min_cost": 22,
                 "name": "brute_force"
             }
         ]
@@ -23,18 +23,18 @@
         "graph_size": 3,
         "results": [
             {
-                "est_calc_time_seconds": 0.0761065,
-                "min_cost": 100,
+                "est_calc_time_seconds": 0.0823603,
+                "min_cost": 180,
                 "name": "genetic"
             },
             {
-                "est_calc_time_seconds": 1.18e-05,
-                "min_cost": 100,
+                "est_calc_time_seconds": 2.92e-05,
+                "min_cost": 180,
                 "name": "held_karp"
             },
             {
-                "est_calc_time_seconds": 3.5e-06,
-                "min_cost": 100,
+                "est_calc_time_seconds": 4.1e-06,
+                "min_cost": 180,
                 "name": "brute_force"
             }
         ]
@@ -43,18 +43,18 @@
         "graph_size": 4,
         "results": [
             {
-                "est_calc_time_seconds": 0.0785999,
-                "min_cost": 46,
+                "est_calc_time_seconds": 0.0869353,
+                "min_cost": 175,
                 "name": "genetic"
             },
             {
-                "est_calc_time_seconds": 1.52e-05,
-                "min_cost": 46,
+                "est_calc_time_seconds": 2.38e-05,
+                "min_cost": 175,
                 "name": "held_karp"
             },
             {
-                "est_calc_time_seconds": 6e-06,
-                "min_cost": 46,
+                "est_calc_time_seconds": 9.8e-06,
+                "min_cost": 175,
                 "name": "brute_force"
             }
         ]
@@ -63,18 +63,18 @@
         "graph_size": 5,
         "results": [
             {
-                "est_calc_time_seconds": 0.0889695,
-                "min_cost": 55,
+                "est_calc_time_seconds": 0.09003,
+                "min_cost": 264,
                 "name": "genetic"
             },
             {
-                "est_calc_time_seconds": 2.45e-05,
-                "min_cost": 55,
+                "est_calc_time_seconds": 3.06e-05,
+                "min_cost": 264,
                 "name": "held_karp"
             },
             {
-                "est_calc_time_seconds": 1.72e-05,
-                "min_cost": 55,
+                "est_calc_time_seconds": 1.69e-05,
+                "min_cost": 264,
                 "name": "brute_force"
             }
         ]
@@ -83,18 +83,18 @@
         "graph_size": 6,
         "results": [
             {
-                "est_calc_time_seconds": 0.087684,
-                "min_cost": 6,
+                "est_calc_time_seconds": 0.0881326,
+                "min_cost": 258,
                 "name": "genetic"
             },
             {
-                "est_calc_time_seconds": 2.86e-05,
-                "min_cost": 6,
+                "est_calc_time_seconds": 4.96e-05,
+                "min_cost": 258,
                 "name": "held_karp"
             },
             {
-                "est_calc_time_seconds": 3.89e-05,
-                "min_cost": 6,
+                "est_calc_time_seconds": 3.69e-05,
+                "min_cost": 258,
                 "name": "brute_force"
             }
         ]
@@ -103,18 +103,18 @@
         "graph_size": 7,
         "results": [
             {
-                "est_calc_time_seconds": 0.0937647,
-                "min_cost": 0,
+                "est_calc_time_seconds": 0.0977831,
+                "min_cost": 248,
                 "name": "genetic"
             },
             {
-                "est_calc_time_seconds": 5.94e-05,
-                "min_cost": 0,
+                "est_calc_time_seconds": 0.000142,
+                "min_cost": 248,
                 "name": "held_karp"
             },
             {
-                "est_calc_time_seconds": 0.0002123,
-                "min_cost": 0,
+                "est_calc_time_seconds": 0.00031,
+                "min_cost": 248,
                 "name": "brute_force"
             }
         ]
@@ -123,18 +123,18 @@
         "graph_size": 8,
         "results": [
             {
-                "est_calc_time_seconds": 0.09332,
-                "min_cost": 0,
+                "est_calc_time_seconds": 0.1008636,
+                "min_cost": 161,
                 "name": "genetic"
             },
             {
-                "est_calc_time_seconds": 0.0002241,
-                "min_cost": 0,
+                "est_calc_time_seconds": 0.0002583,
+                "min_cost": 161,
                 "name": "held_karp"
             },
             {
-                "est_calc_time_seconds": 0.0015915,
-                "min_cost": 0,
+                "est_calc_time_seconds": 0.0013251,
+                "min_cost": 161,
                 "name": "brute_force"
             }
         ]
@@ -143,18 +143,18 @@
         "graph_size": 9,
         "results": [
             {
-                "est_calc_time_seconds": 0.0945979,
-                "min_cost": 0,
+                "est_calc_time_seconds": 0.1027917,
+                "min_cost": 186,
                 "name": "genetic"
             },
             {
-                "est_calc_time_seconds": 0.0002851,
-                "min_cost": 0,
+                "est_calc_time_seconds": 0.0004041,
+                "min_cost": 186,
                 "name": "held_karp"
             },
             {
-                "est_calc_time_seconds": 0.0120975,
-                "min_cost": 0,
+                "est_calc_time_seconds": 0.0111801,
+                "min_cost": 186,
                 "name": "brute_force"
             }
         ]
@@ -163,18 +163,18 @@
         "graph_size": 10,
         "results": [
             {
-                "est_calc_time_seconds": 0.1192027,
-                "min_cost": 0,
+                "est_calc_time_seconds": 0.1157148,
+                "min_cost": 213,
                 "name": "genetic"
             },
             {
-                "est_calc_time_seconds": 0.0006591,
-                "min_cost": 0,
+                "est_calc_time_seconds": 0.0018517,
+                "min_cost": 200,
                 "name": "held_karp"
             },
             {
-                "est_calc_time_seconds": 0.1069253,
-                "min_cost": 0,
+                "est_calc_time_seconds": 0.1063327,
+                "min_cost": 200,
                 "name": "brute_force"
             }
         ]
@@ -183,18 +183,18 @@
         "graph_size": 11,
         "results": [
             {
-                "est_calc_time_seconds": 0.1059491,
-                "min_cost": 0,
+                "est_calc_time_seconds": 0.0995871,
+                "min_cost": 179,
                 "name": "genetic"
             },
             {
-                "est_calc_time_seconds": 0.001185,
-                "min_cost": 0,
+                "est_calc_time_seconds": 0.0018584,
+                "min_cost": 172,
                 "name": "held_karp"
             },
             {
-                "est_calc_time_seconds": 0.9001291,
-                "min_cost": 0,
+                "est_calc_time_seconds": 0.8210374,
+                "min_cost": 172,
                 "name": "brute_force"
             }
         ]
@@ -203,13 +203,13 @@
         "graph_size": 12,
         "results": [
             {
-                "est_calc_time_seconds": 0.0756947,
-                "min_cost": 0,
+                "est_calc_time_seconds": 0.0776793,
+                "min_cost": 306,
                 "name": "genetic"
             },
             {
-                "est_calc_time_seconds": 0.0017002,
-                "min_cost": 0,
+                "est_calc_time_seconds": 0.0028705,
+                "min_cost": 235,
                 "name": "held_karp"
             }
         ]
@@ -218,13 +218,13 @@
         "graph_size": 13,
         "results": [
             {
-                "est_calc_time_seconds": 0.0778088,
-                "min_cost": 0,
+                "est_calc_time_seconds": 0.0815035,
+                "min_cost": 230,
                 "name": "genetic"
             },
             {
-                "est_calc_time_seconds": 0.0043339,
-                "min_cost": 0,
+                "est_calc_time_seconds": 0.0071712,
+                "min_cost": 214,
                 "name": "held_karp"
             }
         ]
@@ -233,13 +233,13 @@
         "graph_size": 14,
         "results": [
             {
-                "est_calc_time_seconds": 0.0851012,
-                "min_cost": 0,
+                "est_calc_time_seconds": 0.0903845,
+                "min_cost": 278,
                 "name": "genetic"
             },
             {
-                "est_calc_time_seconds": 0.0118796,
-                "min_cost": 0,
+                "est_calc_time_seconds": 0.0223518,
+                "min_cost": 231,
                 "name": "held_karp"
             }
         ]
@@ -248,13 +248,13 @@
         "graph_size": 15,
         "results": [
             {
-                "est_calc_time_seconds": 0.0881358,
-                "min_cost": 0,
+                "est_calc_time_seconds": 0.0829008,
+                "min_cost": 318,
                 "name": "genetic"
             },
             {
-                "est_calc_time_seconds": 0.0172876,
-                "min_cost": 0,
+                "est_calc_time_seconds": 0.0403368,
+                "min_cost": 229,
                 "name": "held_karp"
             }
         ]
@@ -263,13 +263,13 @@
         "graph_size": 16,
         "results": [
             {
-                "est_calc_time_seconds": 0.0863288,
-                "min_cost": 0,
+                "est_calc_time_seconds": 0.0880713,
+                "min_cost": 256,
                 "name": "genetic"
             },
             {
-                "est_calc_time_seconds": 0.0757839,
-                "min_cost": 0,
+                "est_calc_time_seconds": 0.1303303,
+                "min_cost": 191,
                 "name": "held_karp"
             }
         ]
@@ -278,13 +278,13 @@
         "graph_size": 17,
         "results": [
             {
-                "est_calc_time_seconds": 0.0881929,
-                "min_cost": 0,
+                "est_calc_time_seconds": 0.0904345,
+                "min_cost": 299,
                 "name": "genetic"
             },
             {
-                "est_calc_time_seconds": 0.1339522,
-                "min_cost": 0,
+                "est_calc_time_seconds": 0.2458702,
+                "min_cost": 192,
                 "name": "held_karp"
             }
         ]
@@ -293,13 +293,13 @@
         "graph_size": 18,
         "results": [
             {
-                "est_calc_time_seconds": 0.0914868,
-                "min_cost": 0,
+                "est_calc_time_seconds": 0.0907909,
+                "min_cost": 311,
                 "name": "genetic"
             },
             {
-                "est_calc_time_seconds": 0.3070537,
-                "min_cost": 0,
+                "est_calc_time_seconds": 0.5200736,
+                "min_cost": 221,
                 "name": "held_karp"
             }
         ]
@@ -308,13 +308,13 @@
         "graph_size": 19,
         "results": [
             {
-                "est_calc_time_seconds": 0.092926,
-                "min_cost": 0,
+                "est_calc_time_seconds": 0.0909856,
+                "min_cost": 278,
                 "name": "genetic"
             },
             {
-                "est_calc_time_seconds": 0.6090638,
-                "min_cost": 0,
+                "est_calc_time_seconds": 1.2774214,
+                "min_cost": 212,
                 "name": "held_karp"
             }
         ]
@@ -323,43 +323,13 @@
         "graph_size": 20,
         "results": [
             {
-                "est_calc_time_seconds": 0.0942524,
-                "min_cost": 0,
+                "est_calc_time_seconds": 0.0961412,
+                "min_cost": 416,
                 "name": "genetic"
             },
             {
-                "est_calc_time_seconds": 1.4151556,
-                "min_cost": 0,
-                "name": "held_karp"
-            }
-        ]
-    },
-    {
-        "graph_size": 21,
-        "results": [
-            {
-                "est_calc_time_seconds": 0.0999666,
-                "min_cost": 0,
-                "name": "genetic"
-            },
-            {
-                "est_calc_time_seconds": 2.5288163,
-                "min_cost": 0,
-                "name": "held_karp"
-            }
-        ]
-    },
-    {
-        "graph_size": 22,
-        "results": [
-            {
-                "est_calc_time_seconds": 0.118909,
-                "min_cost": 0,
-                "name": "genetic"
-            },
-            {
-                "est_calc_time_seconds": 5.2985599,
-                "min_cost": 0,
+                "est_calc_time_seconds": 2.1580418,
+                "min_cost": 196,
                 "name": "held_karp"
             }
         ]

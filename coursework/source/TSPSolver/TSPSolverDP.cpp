@@ -3,60 +3,65 @@
 #include <algorithm>
 
 void TSPSolverDP::solve() {
-    int N = graph.N;
-    int M = 1 << (N - 1);
-    std::vector<std::vector<int> > dp(M, std::vector<int>(N - 1, std::numeric_limits<int>::max()));
-    std::vector<std::vector<int> > parent(M, std::vector<int>(N - 1, -1));
+    const int n = graph.adj.size();
+    const int INF = std::numeric_limits<int>::max();
 
-    // Начальные случаи: из 0 в каждую i
-    for (int i = 0; i < N - 1; i++) {
-        if (graph.adj[0][i + 1] < std::numeric_limits<int>::max() / 2) {
-            dp[1 << i][i] = graph.adj[0][i + 1];
-            parent[1 << i][i] = 0;
-        }
-    }
+    // dp[mask][i] = минимальная стоимость пути в i, пройдя вершины в mask
+    std::vector<std::vector<int>> dp(1 << n, std::vector<int>(n, INF));
+    std::vector<std::vector<int>> parent(1 << n, std::vector<int>(n, -1));  // Для восстановления пути
 
-    // Основной DP: растём по размеру множества mask
-    for (int mask = 0; mask < M; mask++) {
-        for (int j = 0; j < N - 1; j++) {
-            if (!(mask & (1 << j))) continue;
-            int costJ = dp[mask][j];
-            if (costJ >= std::numeric_limits<int>::max() / 2) continue;
-            for (int k = 0; k < N - 1; k++) {
-                if (mask & (1 << k)) continue;
-                int newMask = mask | (1 << k);
-                int newCost = costJ + graph.adj[j + 1][k + 1];
-                if (newCost < dp[newMask][k]) {
-                    dp[newMask][k] = newCost;
-                    parent[newMask][k] = j + 1;
+    dp[1][0] = 0; // Стартуем из вершины 0
+
+    for (int mask = 1; mask < (1 << n); ++mask) {
+        for (int u = 0; u < n; ++u) {
+            if (!(mask & (1 << u))) continue; // u не в маске
+            if (dp[mask][u] == INF) continue;
+            for (int v = 0; v < n; ++v) {
+                if (mask & (1 << v)) continue; // уже посещён
+                if (graph.adj[u][v] == INF) continue;
+
+                int next_mask = mask | (1 << v);
+                int new_cost = dp[mask][u] + graph.adj[u][v];
+                if (new_cost < dp[next_mask][v]) {
+                    dp[next_mask][v] = new_cost;
+                    parent[next_mask][v] = u;
                 }
             }
         }
     }
 
-    // Завершаем цикл, возвращаясь из j+1 в 0
-    bestCost = std::numeric_limits<int>::max();
-    int fullMask = M - 1;
-    for (int j = 0; j < N - 1; j++) {
-        if (dp[fullMask][j] < std::numeric_limits<int>::max() / 2 && graph.adj[j + 1][0] < std::numeric_limits<
-                int>::max() / 2) {
-            int totalCost = dp[fullMask][j] + graph.adj[j + 1][0];
-            if (totalCost < bestCost) {
-                bestCost = totalCost;
-                // Восстановление пути
-                bestPath = {0};
-                int cur = j;
-                int mask = fullMask;
-                while (mask) {
-                    bestPath.push_back(cur + 1);
-                    int prev = parent[mask][cur];
-                    mask ^= (1 << cur);
-                    if (prev == 0) break;
-                    cur = prev - 1;
-                }
-                std::reverse(bestPath.begin() + 1, bestPath.end());
-                bestPath.push_back(0);
-            }
+    // Завершаем путь, возвращаясь в 0
+    int res = INF;
+    int last_node = -1;
+    int final_mask = (1 << n) - 1;
+
+    for (int i = 1; i < n; ++i) {
+        if (graph.adj[i][0] == INF || dp[final_mask][i] == INF) continue;
+
+        int cost = dp[final_mask][i] + graph.adj[i][0];
+        if (cost < res) {
+            res = cost;
+            last_node = i;
         }
     }
+
+    if (res == INF) return;
+
+    // Восстановление маршрута
+    std::vector<int> path;
+    int mask = final_mask;
+    int current = last_node;
+
+    while (current != -1) {
+        path.push_back(current);
+        int temp = parent[mask][current];
+        mask ^= (1 << current);
+        current = temp;
+    }
+
+    path.push_back(0); // возвращение в начальную вершину
+    std::reverse(path.begin(), path.end());
+
+    bestCost = res;
+    bestPath = path;
 }
