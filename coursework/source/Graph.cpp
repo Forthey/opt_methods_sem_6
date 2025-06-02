@@ -57,39 +57,41 @@ bool Graph::saveToJson(const std::string &filename) const {
     return true;
 }
 
-Graph Graph::generateRandomConnected(int N) {
-    Graph g(N);
-    std::random_device rd;
-    std::mt19937 gen(rd());
-    std::uniform_int_distribution<> weightDist(1, 100);
+Graph Graph::generateSymmetricConnectedGraph(int n, int minWeight, int maxWeight) {
+    Graph g(n);
 
-    std::vector<int> vertices(N);
-    std::iota(vertices.begin(), vertices.end(), 0);
-    std::shuffle(vertices.begin(), vertices.end(), gen);
+    std::mt19937 rng(time(nullptr));
+    std::uniform_int_distribution<int> dist(minWeight, maxWeight);
 
-    // Строим простое остовное дерево: соединяем i-ю вершину с случайной предыдущей
-    for (int i = 1; i < N; i++) {
-        int v = vertices[i];
-        int u = vertices[gen() % i];
-        int w = weightDist(gen);
-        g.adj[v][u] = w;
-        g.adj[u][v] = w;
+    std::vector<std::vector<int>> adjMatrix(n, std::vector<int>(n, 0));
+
+    // Сначала строим связный граф в виде остовного дерева
+    std::vector<bool> visited(n, false);
+    visited[0] = true;
+
+    for (int i = 1; i < n; ++i) {
+        int from;
+        do {
+            from = rng() % i;  // выбираем случайную уже посещённую вершину
+        } while (!visited[from]);
+
+        int weight = dist(rng);
+        adjMatrix[i][from] = adjMatrix[from][i] = weight;
+        visited[i] = true;
     }
-    // Дополнительные случайные рёбра
-    std::uniform_real_distribution<> prob(0.0, 1.0);
-    for (int i = 0; i < N; i++) {
-        for (int j = i+1; j < N; j++) {
-            if (g.adj[i][j] >= std::numeric_limits<int>::max() / 2) {
-                if (prob(gen) < 0.3) { // добавляем ребро с вероятностью 0.3
-                    int w = weightDist(gen);
-                    g.adj[i][j] = w;
-                    g.adj[j][i] = w;
-                }
-            }
+
+    // Добавляем дополнительные случайные рёбра для плотности
+    int extraEdges = n;  // можно настроить плотность
+    for (int k = 0; k < extraEdges; ++k) {
+        int i = rng() % n;
+        int j = rng() % n;
+        if (i != j && adjMatrix[i][j] == 0) {
+            int weight = dist(rng);
+            adjMatrix[i][j] = adjMatrix[j][i] = weight;
         }
     }
-    for (int i = 0; i < N; i++) {
-        g.adj[i][i] = 0;
-    }
+
+    g.adj = std::move(adjMatrix);
+
     return g;
 }

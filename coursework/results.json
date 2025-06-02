@@ -1,0 +1,367 @@
+[
+    {
+        "graph_size": 2,
+        "results": [
+            {
+                "est_calc_time_seconds": 0.0648315,
+                "min_cost": 64,
+                "name": "genetic"
+            },
+            {
+                "est_calc_time_seconds": 1.29e-05,
+                "min_cost": 64,
+                "name": "held_karp"
+            },
+            {
+                "est_calc_time_seconds": 3.6e-06,
+                "min_cost": 64,
+                "name": "brute_force"
+            }
+        ]
+    },
+    {
+        "graph_size": 3,
+        "results": [
+            {
+                "est_calc_time_seconds": 0.0761065,
+                "min_cost": 100,
+                "name": "genetic"
+            },
+            {
+                "est_calc_time_seconds": 1.18e-05,
+                "min_cost": 100,
+                "name": "held_karp"
+            },
+            {
+                "est_calc_time_seconds": 3.5e-06,
+                "min_cost": 100,
+                "name": "brute_force"
+            }
+        ]
+    },
+    {
+        "graph_size": 4,
+        "results": [
+            {
+                "est_calc_time_seconds": 0.0785999,
+                "min_cost": 46,
+                "name": "genetic"
+            },
+            {
+                "est_calc_time_seconds": 1.52e-05,
+                "min_cost": 46,
+                "name": "held_karp"
+            },
+            {
+                "est_calc_time_seconds": 6e-06,
+                "min_cost": 46,
+                "name": "brute_force"
+            }
+        ]
+    },
+    {
+        "graph_size": 5,
+        "results": [
+            {
+                "est_calc_time_seconds": 0.0889695,
+                "min_cost": 55,
+                "name": "genetic"
+            },
+            {
+                "est_calc_time_seconds": 2.45e-05,
+                "min_cost": 55,
+                "name": "held_karp"
+            },
+            {
+                "est_calc_time_seconds": 1.72e-05,
+                "min_cost": 55,
+                "name": "brute_force"
+            }
+        ]
+    },
+    {
+        "graph_size": 6,
+        "results": [
+            {
+                "est_calc_time_seconds": 0.087684,
+                "min_cost": 6,
+                "name": "genetic"
+            },
+            {
+                "est_calc_time_seconds": 2.86e-05,
+                "min_cost": 6,
+                "name": "held_karp"
+            },
+            {
+                "est_calc_time_seconds": 3.89e-05,
+                "min_cost": 6,
+                "name": "brute_force"
+            }
+        ]
+    },
+    {
+        "graph_size": 7,
+        "results": [
+            {
+                "est_calc_time_seconds": 0.0937647,
+                "min_cost": 0,
+                "name": "genetic"
+            },
+            {
+                "est_calc_time_seconds": 5.94e-05,
+                "min_cost": 0,
+                "name": "held_karp"
+            },
+            {
+                "est_calc_time_seconds": 0.0002123,
+                "min_cost": 0,
+                "name": "brute_force"
+            }
+        ]
+    },
+    {
+        "graph_size": 8,
+        "results": [
+            {
+                "est_calc_time_seconds": 0.09332,
+                "min_cost": 0,
+                "name": "genetic"
+            },
+            {
+                "est_calc_time_seconds": 0.0002241,
+                "min_cost": 0,
+                "name": "held_karp"
+            },
+            {
+                "est_calc_time_seconds": 0.0015915,
+                "min_cost": 0,
+                "name": "brute_force"
+            }
+        ]
+    },
+    {
+        "graph_size": 9,
+        "results": [
+            {
+                "est_calc_time_seconds": 0.0945979,
+                "min_cost": 0,
+                "name": "genetic"
+            },
+            {
+                "est_calc_time_seconds": 0.0002851,
+                "min_cost": 0,
+                "name": "held_karp"
+            },
+            {
+                "est_calc_time_seconds": 0.0120975,
+                "min_cost": 0,
+                "name": "brute_force"
+            }
+        ]
+    },
+    {
+        "graph_size": 10,
+        "results": [
+            {
+                "est_calc_time_seconds": 0.1192027,
+                "min_cost": 0,
+                "name": "genetic"
+            },
+            {
+                "est_calc_time_seconds": 0.0006591,
+                "min_cost": 0,
+                "name": "held_karp"
+            },
+            {
+                "est_calc_time_seconds": 0.1069253,
+                "min_cost": 0,
+                "name": "brute_force"
+            }
+        ]
+    },
+    {
+        "graph_size": 11,
+        "results": [
+            {
+                "est_calc_time_seconds": 0.1059491,
+                "min_cost": 0,
+                "name": "genetic"
+            },
+            {
+                "est_calc_time_seconds": 0.001185,
+                "min_cost": 0,
+                "name": "held_karp"
+            },
+            {
+                "est_calc_time_seconds": 0.9001291,
+                "min_cost": 0,
+                "name": "brute_force"
+            }
+        ]
+    },
+    {
+        "graph_size": 12,
+        "results": [
+            {
+                "est_calc_time_seconds": 0.0756947,
+                "min_cost": 0,
+                "name": "genetic"
+            },
+            {
+                "est_calc_time_seconds": 0.0017002,
+                "min_cost": 0,
+                "name": "held_karp"
+            }
+        ]
+    },
+    {
+        "graph_size": 13,
+        "results": [
+            {
+                "est_calc_time_seconds": 0.0778088,
+                "min_cost": 0,
+                "name": "genetic"
+            },
+            {
+                "est_calc_time_seconds": 0.0043339,
+                "min_cost": 0,
+                "name": "held_karp"
+            }
+        ]
+    },
+    {
+        "graph_size": 14,
+        "results": [
+            {
+                "est_calc_time_seconds": 0.0851012,
+                "min_cost": 0,
+                "name": "genetic"
+            },
+            {
+                "est_calc_time_seconds": 0.0118796,
+                "min_cost": 0,
+                "name": "held_karp"
+            }
+        ]
+    },
+    {
+        "graph_size": 15,
+        "results": [
+            {
+                "est_calc_time_seconds": 0.0881358,
+                "min_cost": 0,
+                "name": "genetic"
+            },
+            {
+                "est_calc_time_seconds": 0.0172876,
+                "min_cost": 0,
+                "name": "held_karp"
+            }
+        ]
+    },
+    {
+        "graph_size": 16,
+        "results": [
+            {
+                "est_calc_time_seconds": 0.0863288,
+                "min_cost": 0,
+                "name": "genetic"
+            },
+            {
+                "est_calc_time_seconds": 0.0757839,
+                "min_cost": 0,
+                "name": "held_karp"
+            }
+        ]
+    },
+    {
+        "graph_size": 17,
+        "results": [
+            {
+                "est_calc_time_seconds": 0.0881929,
+                "min_cost": 0,
+                "name": "genetic"
+            },
+            {
+                "est_calc_time_seconds": 0.1339522,
+                "min_cost": 0,
+                "name": "held_karp"
+            }
+        ]
+    },
+    {
+        "graph_size": 18,
+        "results": [
+            {
+                "est_calc_time_seconds": 0.0914868,
+                "min_cost": 0,
+                "name": "genetic"
+            },
+            {
+                "est_calc_time_seconds": 0.3070537,
+                "min_cost": 0,
+                "name": "held_karp"
+            }
+        ]
+    },
+    {
+        "graph_size": 19,
+        "results": [
+            {
+                "est_calc_time_seconds": 0.092926,
+                "min_cost": 0,
+                "name": "genetic"
+            },
+            {
+                "est_calc_time_seconds": 0.6090638,
+                "min_cost": 0,
+                "name": "held_karp"
+            }
+        ]
+    },
+    {
+        "graph_size": 20,
+        "results": [
+            {
+                "est_calc_time_seconds": 0.0942524,
+                "min_cost": 0,
+                "name": "genetic"
+            },
+            {
+                "est_calc_time_seconds": 1.4151556,
+                "min_cost": 0,
+                "name": "held_karp"
+            }
+        ]
+    },
+    {
+        "graph_size": 21,
+        "results": [
+            {
+                "est_calc_time_seconds": 0.0999666,
+                "min_cost": 0,
+                "name": "genetic"
+            },
+            {
+                "est_calc_time_seconds": 2.5288163,
+                "min_cost": 0,
+                "name": "held_karp"
+            }
+        ]
+    },
+    {
+        "graph_size": 22,
+        "results": [
+            {
+                "est_calc_time_seconds": 0.118909,
+                "min_cost": 0,
+                "name": "genetic"
+            },
+            {
+                "est_calc_time_seconds": 5.2985599,
+                "min_cost": 0,
+                "name": "held_karp"
+            }
+        ]
+    }
+]

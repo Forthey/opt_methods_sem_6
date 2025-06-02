@@ -26,5 +26,5 @@ public:
 
     // Генерация случайного связного графа с N вершинами и случайными весами.
     // Логика: строим остовное дерево (чтобы гарантировать связность), затем случайно добавляем рёбра.
-    static Graph generateRandomConnected(int N);
+    static Graph generateSymmetricConnectedGraph(int n, int minWeight = 1, int maxWeight = 50);
 };
