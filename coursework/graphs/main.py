@@ -40,7 +40,7 @@ def parse_json(filename: str) -> list[dict]:
     return data
 
 
-def create_models(data: list[dict]) -> tuple[AlgorithmData]:
+def create_models(data: list[dict]) -> tuple[tuple[AlgorithmData], AlgorithmData]:
     result: dict[str, AlgorithmData] = {}
     
     for iteration_data in data:
@@ -55,7 +55,7 @@ def create_models(data: list[dict]) -> tuple[AlgorithmData]:
                 time=graph_data["est_calc_time_seconds"]
             ))
     
-    return tuple(result.values())
+    return tuple(result.values()), result["held_karp"]
 
 
 def create_graph_by_data(x_axis: list, y_axis: list):
@@ -85,7 +85,7 @@ def create_graph(
     pyplot.title(name)
 
 
-def create_graphs(models: tuple[AlgorithmData]):
+def create_graphs(models: tuple[AlgorithmData], best_model: AlgorithmData):
     legend: list[str] = []
 
     for model in models:
@@ -93,8 +93,15 @@ def create_graphs(models: tuple[AlgorithmData]):
     
     pyplot.subplot(2, 1, 1)
 
-    cost_function: Callable[[AlgorithmData], list[tuple[int, int]]] = lambda model: model.get_cost()
-    create_graph(models, cost_function, legend, "График зависимости ошибки от размера графа")
+    def right_data(model: AlgorithmData) -> list[tuple[int, int]]:
+        result: list[tuple[int, int]] = []
+
+        for index, (iteration, value) in enumerate(model.get_cost()):
+            result.append((iteration, abs(best_model.get_cost()[index][1] - value)))
+        
+        return result
+    
+    create_graph(models, right_data, legend, "График зависимости ошибки от размера графа")
 
     pyplot.subplot(2, 1, 2)
 
@@ -111,9 +118,9 @@ def main():
         filename = "../results.json"
 
     data: list[dict] = parse_json(filename)
-    models: tuple[AlgorithmData] = create_models(data)
+    models, best_model = create_models(data)
 
-    create_graphs(models)
+    create_graphs(models, best_model)
 
 
 if __name__ == "__main__":
