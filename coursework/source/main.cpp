@@ -101,7 +101,7 @@ int main() {
 
     auto graphs = generateGraphs(minSize, maxSize);
 
-    for (auto& graph : graphs) {
+    for (auto &graph: graphs) {
         Result result;
         result.graph_size = graph.N;
 
@@ -110,7 +110,10 @@ int main() {
         std::unordered_map<std::string, std::shared_ptr<TSPSolver> > solvers{
             {"brute_force", std::make_shared<TSPSolverBrute>(graph)},
             {"held_karp", std::make_shared<TSPSolverDP>(graph)},
-            {"genetic", std::make_shared<TSPSolverGenetic>(graph)}
+            {"genetic_volatile", std::make_shared<TSPSolverGenetic>(graph)},
+            {"genetic_100", std::make_shared<TSPSolverGenetic>(graph, 100)},
+            {"genetic_1000", std::make_shared<TSPSolverGenetic>(graph, 1000)},
+            {"genetic_5000", std::make_shared<TSPSolverGenetic>(graph, 5000)}
         };
 
         for (auto &[name, solver]: solvers) {

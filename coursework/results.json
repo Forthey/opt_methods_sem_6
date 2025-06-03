@@ -3,18 +3,33 @@
         "graph_size": 2,
         "results": [
             {
-                "est_calc_time_seconds": 0.0734741,
-                "min_cost": 22,
-                "name": "genetic"
+                "est_calc_time_seconds": 0.7500178,
+                "min_cost": 70,
+                "name": "genetic_5000"
             },
             {
-                "est_calc_time_seconds": 1.41e-05,
-                "min_cost": 22,
+                "est_calc_time_seconds": 0.1516451,
+                "min_cost": 70,
+                "name": "genetic_1000"
+            },
+            {
+                "est_calc_time_seconds": 0.0140047,
+                "min_cost": 70,
+                "name": "genetic_100"
+            },
+            {
+                "est_calc_time_seconds": 0.0150816,
+                "min_cost": 70,
+                "name": "genetic_volatile"
+            },
+            {
+                "est_calc_time_seconds": 1.24e-05,
+                "min_cost": 70,
                 "name": "held_karp"
             },
             {
-                "est_calc_time_seconds": 3.4e-06,
-                "min_cost": 22,
+                "est_calc_time_seconds": 3.6e-06,
+                "min_cost": 70,
                 "name": "brute_force"
             }
         ]
@@ -23,18 +38,33 @@
         "graph_size": 3,
         "results": [
             {
-                "est_calc_time_seconds": 0.0823603,
-                "min_cost": 180,
-                "name": "genetic"
+                "est_calc_time_seconds": 0.6238409,
+                "min_cost": 130,
+                "name": "genetic_5000"
             },
             {
-                "est_calc_time_seconds": 2.92e-05,
-                "min_cost": 180,
+                "est_calc_time_seconds": 0.1084556,
+                "min_cost": 130,
+                "name": "genetic_1000"
+            },
+            {
+                "est_calc_time_seconds": 0.0112161,
+                "min_cost": 130,
+                "name": "genetic_100"
+            },
+            {
+                "est_calc_time_seconds": 0.0240209,
+                "min_cost": 130,
+                "name": "genetic_volatile"
+            },
+            {
+                "est_calc_time_seconds": 2.73e-05,
+                "min_cost": 130,
                 "name": "held_karp"
             },
             {
-                "est_calc_time_seconds": 4.1e-06,
-                "min_cost": 180,
+                "est_calc_time_seconds": 3.6e-06,
+                "min_cost": 130,
                 "name": "brute_force"
             }
         ]
@@ -43,18 +73,33 @@
         "graph_size": 4,
         "results": [
             {
-                "est_calc_time_seconds": 0.0869353,
-                "min_cost": 175,
-                "name": "genetic"
+                "est_calc_time_seconds": 0.6198757,
+                "min_cost": 88,
+                "name": "genetic_5000"
             },
             {
-                "est_calc_time_seconds": 2.38e-05,
-                "min_cost": 175,
+                "est_calc_time_seconds": 0.1144565,
+                "min_cost": 88,
+                "name": "genetic_1000"
+            },
+            {
+                "est_calc_time_seconds": 0.01219,
+                "min_cost": 88,
+                "name": "genetic_100"
+            },
+            {
+                "est_calc_time_seconds": 0.0381837,
+                "min_cost": 88,
+                "name": "genetic_volatile"
+            },
+            {
+                "est_calc_time_seconds": 2.69e-05,
+                "min_cost": 88,
                 "name": "held_karp"
             },
             {
-                "est_calc_time_seconds": 9.8e-06,
-                "min_cost": 175,
+                "est_calc_time_seconds": 4.5e-06,
+                "min_cost": 88,
                 "name": "brute_force"
             }
         ]
@@ -63,18 +108,33 @@
         "graph_size": 5,
         "results": [
             {
-                "est_calc_time_seconds": 0.09003,
-                "min_cost": 264,
-                "name": "genetic"
+                "est_calc_time_seconds": 0.6253078,
+                "min_cost": 51,
+                "name": "genetic_5000"
             },
             {
-                "est_calc_time_seconds": 3.06e-05,
-                "min_cost": 264,
+                "est_calc_time_seconds": 0.1310973,
+                "min_cost": 51,
+                "name": "genetic_1000"
+            },
+            {
+                "est_calc_time_seconds": 0.0162521,
+                "min_cost": 51,
+                "name": "genetic_100"
+            },
+            {
+                "est_calc_time_seconds": 0.0682995,
+                "min_cost": 51,
+                "name": "genetic_volatile"
+            },
+            {
+                "est_calc_time_seconds": 1.98e-05,
+                "min_cost": 51,
                 "name": "held_karp"
             },
             {
-                "est_calc_time_seconds": 1.69e-05,
-                "min_cost": 264,
+                "est_calc_time_seconds": 1.02e-05,
+                "min_cost": 51,
                 "name": "brute_force"
             }
         ]
@@ -83,18 +143,33 @@
         "graph_size": 6,
         "results": [
             {
-                "est_calc_time_seconds": 0.0881326,
-                "min_cost": 258,
-                "name": "genetic"
+                "est_calc_time_seconds": 0.6495345,
+                "min_cost": 149,
+                "name": "genetic_5000"
             },
             {
-                "est_calc_time_seconds": 4.96e-05,
-                "min_cost": 258,
+                "est_calc_time_seconds": 0.124285,
+                "min_cost": 149,
+                "name": "genetic_1000"
+            },
+            {
+                "est_calc_time_seconds": 0.0129014,
+                "min_cost": 149,
+                "name": "genetic_100"
+            },
+            {
+                "est_calc_time_seconds": 0.0735799,
+                "min_cost": 149,
+                "name": "genetic_volatile"
+            },
+            {
+                "est_calc_time_seconds": 5.99e-05,
+                "min_cost": 149,
                 "name": "held_karp"
             },
             {
-                "est_calc_time_seconds": 3.69e-05,
-                "min_cost": 258,
+                "est_calc_time_seconds": 3.66e-05,
+                "min_cost": 149,
                 "name": "brute_force"
             }
         ]
@@ -103,18 +178,33 @@
         "graph_size": 7,
         "results": [
             {
-                "est_calc_time_seconds": 0.0977831,
-                "min_cost": 248,
-                "name": "genetic"
+                "est_calc_time_seconds": 0.6652547,
+                "min_cost": 156,
+                "name": "genetic_5000"
             },
             {
-                "est_calc_time_seconds": 0.000142,
-                "min_cost": 248,
+                "est_calc_time_seconds": 0.1256387,
+                "min_cost": 156,
+                "name": "genetic_1000"
+            },
+            {
+                "est_calc_time_seconds": 0.0137219,
+                "min_cost": 156,
+                "name": "genetic_100"
+            },
+            {
+                "est_calc_time_seconds": 0.095545,
+                "min_cost": 156,
+                "name": "genetic_volatile"
+            },
+            {
+                "est_calc_time_seconds": 8.09e-05,
+                "min_cost": 156,
                 "name": "held_karp"
             },
             {
-                "est_calc_time_seconds": 0.00031,
-                "min_cost": 248,
+                "est_calc_time_seconds": 0.0003141,
+                "min_cost": 156,
                 "name": "brute_force"
             }
         ]
@@ -123,18 +213,33 @@
         "graph_size": 8,
         "results": [
             {
-                "est_calc_time_seconds": 0.1008636,
-                "min_cost": 161,
-                "name": "genetic"
+                "est_calc_time_seconds": 0.6818436,
+                "min_cost": 131,
+                "name": "genetic_5000"
             },
             {
-                "est_calc_time_seconds": 0.0002583,
-                "min_cost": 161,
+                "est_calc_time_seconds": 0.1309864,
+                "min_cost": 131,
+                "name": "genetic_1000"
+            },
+            {
+                "est_calc_time_seconds": 0.0134619,
+                "min_cost": 131,
+                "name": "genetic_100"
+            },
+            {
+                "est_calc_time_seconds": 0.121054,
+                "min_cost": 131,
+                "name": "genetic_volatile"
+            },
+            {
+                "est_calc_time_seconds": 0.0001832,
+                "min_cost": 131,
                 "name": "held_karp"
             },
             {
-                "est_calc_time_seconds": 0.0013251,
-                "min_cost": 161,
+                "est_calc_time_seconds": 0.0010603,
+                "min_cost": 131,
                 "name": "brute_force"
             }
         ]
@@ -143,18 +248,33 @@
         "graph_size": 9,
         "results": [
             {
-                "est_calc_time_seconds": 0.1027917,
-                "min_cost": 186,
-                "name": "genetic"
+                "est_calc_time_seconds": 0.7143645,
+                "min_cost": 224,
+                "name": "genetic_5000"
             },
             {
-                "est_calc_time_seconds": 0.0004041,
-                "min_cost": 186,
+                "est_calc_time_seconds": 0.1362253,
+                "min_cost": 224,
+                "name": "genetic_1000"
+            },
+            {
+                "est_calc_time_seconds": 0.0141571,
+                "min_cost": 268,
+                "name": "genetic_100"
+            },
+            {
+                "est_calc_time_seconds": 0.153309,
+                "min_cost": 224,
+                "name": "genetic_volatile"
+            },
+            {
+                "est_calc_time_seconds": 0.0005172,
+                "min_cost": 224,
                 "name": "held_karp"
             },
             {
-                "est_calc_time_seconds": 0.0111801,
-                "min_cost": 186,
+                "est_calc_time_seconds": 0.0086988,
+                "min_cost": 224,
                 "name": "brute_force"
             }
         ]
@@ -163,18 +283,33 @@
         "graph_size": 10,
         "results": [
             {
-                "est_calc_time_seconds": 0.1157148,
-                "min_cost": 213,
-                "name": "genetic"
+                "est_calc_time_seconds": 0.7234924,
+                "min_cost": 142,
+                "name": "genetic_5000"
             },
             {
-                "est_calc_time_seconds": 0.0018517,
-                "min_cost": 200,
+                "est_calc_time_seconds": 0.1484081,
+                "min_cost": 142,
+                "name": "genetic_1000"
+            },
+            {
+                "est_calc_time_seconds": 0.0144038,
+                "min_cost": 198,
+                "name": "genetic_100"
+            },
+            {
+                "est_calc_time_seconds": 0.1765989,
+                "min_cost": 142,
+                "name": "genetic_volatile"
+            },
+            {
+                "est_calc_time_seconds": 0.0006262,
+                "min_cost": 142,
                 "name": "held_karp"
             },
             {
-                "est_calc_time_seconds": 0.1063327,
-                "min_cost": 200,
+                "est_calc_time_seconds": 0.0807492,
+                "min_cost": 142,
                 "name": "brute_force"
             }
         ]
@@ -183,18 +318,33 @@
         "graph_size": 11,
         "results": [
             {
-                "est_calc_time_seconds": 0.0995871,
-                "min_cost": 179,
-                "name": "genetic"
+                "est_calc_time_seconds": 0.7501854,
+                "min_cost": 220,
+                "name": "genetic_5000"
             },
             {
-                "est_calc_time_seconds": 0.0018584,
-                "min_cost": 172,
+                "est_calc_time_seconds": 0.1445292,
+                "min_cost": 220,
+                "name": "genetic_1000"
+            },
+            {
+                "est_calc_time_seconds": 0.0150238,
+                "min_cost": 263,
+                "name": "genetic_100"
+            },
+            {
+                "est_calc_time_seconds": 0.2101615,
+                "min_cost": 220,
+                "name": "genetic_volatile"
+            },
+            {
+                "est_calc_time_seconds": 0.0012676,
+                "min_cost": 220,
                 "name": "held_karp"
             },
             {
-                "est_calc_time_seconds": 0.8210374,
-                "min_cost": 172,
+                "est_calc_time_seconds": 0.8633427,
+                "min_cost": 220,
                 "name": "brute_force"
             }
         ]
@@ -203,13 +353,28 @@
         "graph_size": 12,
         "results": [
             {
-                "est_calc_time_seconds": 0.0776793,
-                "min_cost": 306,
-                "name": "genetic"
+                "est_calc_time_seconds": 0.7722166,
+                "min_cost": 237,
+                "name": "genetic_5000"
             },
             {
-                "est_calc_time_seconds": 0.0028705,
-                "min_cost": 235,
+                "est_calc_time_seconds": 0.1497166,
+                "min_cost": 237,
+                "name": "genetic_1000"
+            },
+            {
+                "est_calc_time_seconds": 0.0152367,
+                "min_cost": 274,
+                "name": "genetic_100"
+            },
+            {
+                "est_calc_time_seconds": 0.241286,
+                "min_cost": 237,
+                "name": "genetic_volatile"
+            },
+            {
+                "est_calc_time_seconds": 0.0027191,
+                "min_cost": 237,
                 "name": "held_karp"
             }
         ]
@@ -218,13 +383,28 @@
         "graph_size": 13,
         "results": [
             {
-                "est_calc_time_seconds": 0.0815035,
-                "min_cost": 230,
-                "name": "genetic"
+                "est_calc_time_seconds": 0.7981261,
+                "min_cost": 179,
+                "name": "genetic_5000"
             },
             {
-                "est_calc_time_seconds": 0.0071712,
-                "min_cost": 214,
+                "est_calc_time_seconds": 0.1576098,
+                "min_cost": 183,
+                "name": "genetic_1000"
+            },
+            {
+                "est_calc_time_seconds": 0.0158593,
+                "min_cost": 274,
+                "name": "genetic_100"
+            },
+            {
+                "est_calc_time_seconds": 0.2798458,
+                "min_cost": 183,
+                "name": "genetic_volatile"
+            },
+            {
+                "est_calc_time_seconds": 0.0063614,
+                "min_cost": 179,
                 "name": "held_karp"
             }
         ]
@@ -233,13 +413,28 @@
         "graph_size": 14,
         "results": [
             {
-                "est_calc_time_seconds": 0.0903845,
-                "min_cost": 278,
-                "name": "genetic"
+                "est_calc_time_seconds": 0.8168488,
+                "min_cost": 187,
+                "name": "genetic_5000"
             },
             {
-                "est_calc_time_seconds": 0.0223518,
-                "min_cost": 231,
+                "est_calc_time_seconds": 0.1579311,
+                "min_cost": 223,
+                "name": "genetic_1000"
+            },
+            {
+                "est_calc_time_seconds": 0.0165365,
+                "min_cost": 271,
+                "name": "genetic_100"
+            },
+            {
+                "est_calc_time_seconds": 0.3093387,
+                "min_cost": 187,
+                "name": "genetic_volatile"
+            },
+            {
+                "est_calc_time_seconds": 0.0135147,
+                "min_cost": 187,
                 "name": "held_karp"
             }
         ]
@@ -248,13 +443,28 @@
         "graph_size": 15,
         "results": [
             {
-                "est_calc_time_seconds": 0.0829008,
-                "min_cost": 318,
-                "name": "genetic"
+                "est_calc_time_seconds": 0.8353573,
+                "min_cost": 239,
+                "name": "genetic_5000"
             },
             {
-                "est_calc_time_seconds": 0.0403368,
-                "min_cost": 229,
+                "est_calc_time_seconds": 0.1739165,
+                "min_cost": 245,
+                "name": "genetic_1000"
+            },
+            {
+                "est_calc_time_seconds": 0.0180943,
+                "min_cost": 374,
+                "name": "genetic_100"
+            },
+            {
+                "est_calc_time_seconds": 0.3483657,
+                "min_cost": 242,
+                "name": "genetic_volatile"
+            },
+            {
+                "est_calc_time_seconds": 0.0365888,
+                "min_cost": 221,
                 "name": "held_karp"
             }
         ]
@@ -263,13 +473,28 @@
         "graph_size": 16,
         "results": [
             {
-                "est_calc_time_seconds": 0.0880713,
-                "min_cost": 256,
-                "name": "genetic"
+                "est_calc_time_seconds": 0.9200838,
+                "min_cost": 252,
+                "name": "genetic_5000"
             },
             {
-                "est_calc_time_seconds": 0.1303303,
-                "min_cost": 191,
+                "est_calc_time_seconds": 0.1907915,
+                "min_cost": 268,
+                "name": "genetic_1000"
+            },
+            {
+                "est_calc_time_seconds": 0.0175739,
+                "min_cost": 292,
+                "name": "genetic_100"
+            },
+            {
+                "est_calc_time_seconds": 0.3917792,
+                "min_cost": 266,
+                "name": "genetic_volatile"
+            },
+            {
+                "est_calc_time_seconds": 0.0917172,
+                "min_cost": 249,
                 "name": "held_karp"
             }
         ]
@@ -278,13 +503,28 @@
         "graph_size": 17,
         "results": [
             {
-                "est_calc_time_seconds": 0.0904345,
-                "min_cost": 299,
-                "name": "genetic"
+                "est_calc_time_seconds": 0.8820715,
+                "min_cost": 206,
+                "name": "genetic_5000"
             },
             {
-                "est_calc_time_seconds": 0.2458702,
-                "min_cost": 192,
+                "est_calc_time_seconds": 0.1706663,
+                "min_cost": 221,
+                "name": "genetic_1000"
+            },
+            {
+                "est_calc_time_seconds": 0.0172331,
+                "min_cost": 264,
+                "name": "genetic_100"
+            },
+            {
+                "est_calc_time_seconds": 0.4353405,
+                "min_cost": 227,
+                "name": "genetic_volatile"
+            },
+            {
+                "est_calc_time_seconds": 0.2496574,
+                "min_cost": 201,
                 "name": "held_karp"
             }
         ]
@@ -293,13 +533,28 @@
         "graph_size": 18,
         "results": [
             {
-                "est_calc_time_seconds": 0.0907909,
-                "min_cost": 311,
-                "name": "genetic"
+                "est_calc_time_seconds": 0.8955385,
+                "min_cost": 224,
+                "name": "genetic_5000"
             },
             {
-                "est_calc_time_seconds": 0.5200736,
-                "min_cost": 221,
+                "est_calc_time_seconds": 0.1734689,
+                "min_cost": 297,
+                "name": "genetic_1000"
+            },
+            {
+                "est_calc_time_seconds": 0.0185388,
+                "min_cost": 245,
+                "name": "genetic_100"
+            },
+            {
+                "est_calc_time_seconds": 0.4741448,
+                "min_cost": 218,
+                "name": "genetic_volatile"
+            },
+            {
+                "est_calc_time_seconds": 0.5065071,
+                "min_cost": 206,
                 "name": "held_karp"
             }
         ]
@@ -308,13 +563,28 @@
         "graph_size": 19,
         "results": [
             {
-                "est_calc_time_seconds": 0.0909856,
-                "min_cost": 278,
-                "name": "genetic"
+                "est_calc_time_seconds": 0.9125781,
+                "min_cost": 243,
+                "name": "genetic_5000"
             },
             {
-                "est_calc_time_seconds": 1.2774214,
-                "min_cost": 212,
+                "est_calc_time_seconds": 0.1825084,
+                "min_cost": 262,
+                "name": "genetic_1000"
+            },
+            {
+                "est_calc_time_seconds": 0.0179435,
+                "min_cost": 347,
+                "name": "genetic_100"
+            },
+            {
+                "est_calc_time_seconds": 0.5208937,
+                "min_cost": 246,
+                "name": "genetic_volatile"
+            },
+            {
+                "est_calc_time_seconds": 1.1997989,
+                "min_cost": 227,
                 "name": "held_karp"
             }
         ]
@@ -323,13 +593,28 @@
         "graph_size": 20,
         "results": [
             {
-                "est_calc_time_seconds": 0.0961412,
-                "min_cost": 416,
-                "name": "genetic"
+                "est_calc_time_seconds": 0.9414561,
+                "min_cost": 206,
+                "name": "genetic_5000"
             },
             {
-                "est_calc_time_seconds": 2.1580418,
+                "est_calc_time_seconds": 0.1807311,
+                "min_cost": 193,
+                "name": "genetic_1000"
+            },
+            {
+                "est_calc_time_seconds": 0.0184901,
                 "min_cost": 196,
+                "name": "genetic_100"
+            },
+            {
+                "est_calc_time_seconds": 0.5657413,
+                "min_cost": 205,
+                "name": "genetic_volatile"
+            },
+            {
+                "est_calc_time_seconds": 2.4970045,
+                "min_cost": 172,
                 "name": "held_karp"
             }
         ]
